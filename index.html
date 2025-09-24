@@ -3,276 +3,1063 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Md. Momenur Rahman - Portfolio</title>
+  <title>MD. Momenur Rahman - Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #34495e;
+      --accent-color: #3498db;
+      --text-color: #333;
+      --bg-color: #f7f9fc;
+      --card-bg: #fff;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
+    
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f7f9fc;
-      color: #333;
+      background: var(--bg-color);
+      color: var(--text-color);
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      line-height: 1.6;
     }
+    
     header {
-      background: linear-gradient(135deg, #2c3e50, #34495e);
+      background: linear-gradient(135deg, #2c3e50, #34495e, #1a2b3c);
       color: white;
       text-align: center;
       padding: 3rem 1rem;
       width: 100%;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
     }
     header h1 {
       margin: 0;
       font-size: 2.8rem;
       letter-spacing: 1px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
     header p {
       margin: 0.5rem 0 0;
       font-size: 1.2rem;
       opacity: 0.9;
     }
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin: -75px auto 2rem auto;
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
     nav {
-      background: #2c3e50;
+      background: var(--primary-color);
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      border-bottom: 3px solid #1abc9c;
-      width: 100%;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     nav a {
       color: white;
-      padding: 1rem 1.5rem;
       text-decoration: none;
-      transition: background 0.3s, color 0.3s;
-      cursor: pointer;
-      font-weight: 500;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      border-radius: 8px;
+      margin: 0.2rem;
     }
-    nav a:hover, nav a.active {
-      background: #1abc9c;
-      color: #fff;
+    nav a:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
     }
     .section {
-      flex: 1;
-      width: 100%;
-      min-height: 100vh;
-      max-width: 1100px;
+      padding: 3rem 2rem;
+      text-align: center;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 2rem;
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-      display: none;
-      animation: fadeIn 0.6s ease;
-      box-sizing: border-box;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
-    .section.active {
-      display: block;
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .section h2 {
-      color: #2c3e50;
-      margin-top: 0;
-      border-bottom: 2px solid #1abc9c;
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--accent-color);
+      padding-bottom: 0.5rem;
       display: inline-block;
-      padding-bottom: 0.3rem;
+      margin-bottom: 2rem;
     }
-    .profile-img {
-      display: block;
-      margin: 1rem auto;
-      border-radius: 50%;
-      width: 160px;
-      height: 160px;
-      object-fit: cover;
-      border: 4px solid #1abc9c;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    #about {
+      padding-top: 2rem;
     }
-    video, img {
-      max-width: 100%;
-      border-radius: 12px;
+    #about p {
+      max-width: 700px;
+      margin: 1.5rem auto;
+      font-size: 1.1rem;
     }
-    .grid {
+    
+    /* Skills Section Styling */
+    .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .skill {
+      background: linear-gradient(145deg, var(--card-bg), #eef1f6);
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+      text-align: center;
+      border: 1px solid #e0e6ec;
+    }
+    .skill:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      background: linear-gradient(145deg, #eef1f6, #dce4ee);
+    }
+    .skill .icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+      transition: transform 0.4s ease;
+    }
+    .skill:hover .icon {
+      transform: rotate(15deg);
+    }
+    .skill h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+
+    /* Experience & Education Section Styling */
+    .info-card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+    .info-card {
+      width: 100%;
+      background: var(--bg-color);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    @media (max-width: 768px) {
+      .info-card-container {
+        max-width: 100%;
+        padding: 0 1rem;
+      }
+    }
+    .info-card h3 {
+      color: var(--primary-color);
+      margin-top: 0;
+    }
+    .info-card ul, .info-card p {
+      margin: 0.5rem 0;
+    }
+    .read-more-btn {
+      background-color: transparent;
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
       margin-top: 1rem;
     }
-    .item {
-      background: #fafafa;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-align: center;
+    .read-more-btn:hover {
+      background-color: var(--accent-color);
+      color: white;
+      transform: translateY(-2px);
     }
-    .item:hover {
+    
+    /* Projects Section Styling */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
-    .item img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-top: 0.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    .project-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
     }
-    .download-btn {
+    .project-content {
+      padding: 1.5rem;
+    }
+    .project-content h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+    .project-content p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+    .project-content a {
       display: inline-block;
       margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      background: #1abc9c;
-      color: white;
-      border-radius: 8px;
-      font-weight: bold;
+      color: var(--accent-color);
       text-decoration: none;
-      transition: background 0.3s;
+      font-weight: bold;
+      transition: color 0.3s ease;
     }
-    .download-btn:hover {
-      background: #16a085;
+    .project-content a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Gallery Section Styling */
+    .gallery-container {
+      width: 100%;
+      overflow: hidden;
+      margin-top: 2rem;
+      position: relative;
     }
     .scroll-gallery {
       display: flex;
-      overflow-x: auto;
-      gap: 1rem;
+      white-space: nowrap;
       padding: 1rem 0;
+      gap: 1.5rem;
+      animation: autoscroll 30s linear infinite;
     }
-    .scroll-gallery img {
-      height: 150px;
-      border-radius: 10px;
+    .scroll-gallery:hover {
+      animation-play-state: paused;
+    }
+    .gallery-card {
       flex-shrink: 0;
+      width: 250px;
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: all 0.4s ease;
+      position: relative;
     }
+    .gallery-card:hover {
+      transform: scale(1.05) translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .gallery-card-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px 15px 0 0;
+      display: block;
+    }
+    .gallery-card-content {
+      padding: 1rem;
+      text-align: left;
+      position: relative;
+    }
+    .gallery-card-category {
+      font-size: 0.8em;
+      text-transform: uppercase;
+      color: #888;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .gallery-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin: 0.5rem 0 0.5rem;
+      line-height: 1.4;
+    }
+    .gallery-card-details {
+      max-height: 0;
+      opacity: 0;
+      visibility: hidden;
+      overflow: hidden;
+      transition: max-height 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .gallery-card:hover .gallery-card-details {
+      max-height: 200px; /* Adjust based on content */
+      opacity: 1;
+      visibility: visible;
+      padding-top: 1rem;
+    }
+    .details-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .details-row span {
+      margin-right: 1rem;
+      color: #555;
+      font-size: 0.9em;
+    }
+    .gallery-card-description {
+      font-size: 0.9em;
+      color: #666;
+    }
+    .action-link {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s ease;
+      margin-left: auto;
+    }
+    .action-link:hover {
+      color: var(--primary-color);
+    }
+    .download-btn {
+      display: inline-block;
+      background: var(--accent-color);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 2rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .download-btn:hover {
+      background-color: #2980b9;
+      transform: translateY(-3px);
+    }
+    
+    @keyframes autoscroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    /* New Contact Section Styling */
+    #contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .contact-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 600px;
+      padding: 2rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      background: #fdfdfd;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .form-group label {
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    .form-group input, .form-group textarea {
+      padding: 0.8rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+      outline: none;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .send-btn {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-weight: bold;
+    }
+    .send-btn:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+    .contact-info-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.1rem;
+      color: var(--text-color);
+      text-decoration: none;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .contact-item:hover {
+      color: var(--accent-color);
+      transform: translateX(5px);
+    }
+    .contact-item a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .contact-item a:hover {
+      color: var(--accent-color);
+    }
+    .contact-item .icon {
+      font-size: 1.5rem;
+      color: var(--accent-color);
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .social-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+    .social-icon:hover {
+      color: var(--accent-color);
+      transform: scale(1.1);
+    }
+    .contact-buttons {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .contact-buttons .download-btn {
+      margin-top: 0;
+    }
+    #message-box {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      text-align: center;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
     footer {
-      background: #2c3e50;
+      background: linear-gradient(45deg, #1a2b3c, var(--secondary-color));
       color: white;
       text-align: center;
-      padding: 1.5rem;
+      padding: 2rem 1rem;
       margin-top: auto;
-      font-size: 0.9rem;
-      width: 100%;
+      border-top: 3px solid var(--accent-color);
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
     }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);} 
-      to {opacity: 1; transform: translateY(0);} 
+    footer p {
+      margin: 0;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .modal-content {
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 700px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #aaa;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .close-btn:hover {
+      color: #333;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>Md. Momenur Rahman</h1>
-    <p>Civil Engineer | Project Management | Researcher</p>
-    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download CV</a>
+    <h1>Md. Momenur Rahaman</h1>
+    <p>Civil Engineer | MIS & Operations Coordinator</p>
   </header>
 
   <nav>
-    <a class="active" onclick="showSection('about', event)">About</a>
-    <a onclick="showSection('experience', event)">Experience</a>
-    <a onclick="showSection('education', event)">Education</a>
-    <a onclick="showSection('skills', event)">Skills</a>
-    <a onclick="showSection('projects', event)">Projects</a>
-    <a onclick="showSection('certifications', event)">Certifications</a>
-    <a onclick="showSection('achievements', event)">Achievements</a>
-    <a onclick="showSection('contact', event)">Contact</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#projects">Projects</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#contact">Contact</a>
   </nav>
 
-  <section id="about" class="section active">
-    <h2>About</h2>
-    <img src="profile.jpg" alt="Profile Photo" class="profile-img">
-    <p>I am a dedicated and passionate Civil Engineer with over 7 years of diverse experience at Larsen & Toubro, specializing in project management, MIS, and operations. I excel at leveraging technology and data-driven strategies to streamline processes, enhance efficiency, and ensure successful delivery of large-scale infrastructure projects. Currently pursuing a B.Tech in Construction Technology from VIT-Vellore, I combine practical field knowledge with cutting-edge digital tools like Power BI, Python, and Primavera P6 to drive impactful outcomes. Beyond my professional role, I am an avid learner and researcher, having published work on cost and time overrun prediction models, and I continue to explore new technologies that transform the engineering landscape.</p>
-    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download CV</a>
-  </section>
+  </br>
+  </br>
+  </br>
+  
+  <img src="https://placehold.co/150x150/f7f9fc/333?text=MR" alt="Profile Picture" class="profile-img">
 
-  <section id="experience" class="section">
-    <h2>Experience</h2>
-    <div class="grid">
-      <div class="item"><h3>Larsen & Toubro Ltd</h3><p>Cluster Operations & Digital Coordinator – Engineer (Civil) (2024–Present)</p><a href="sample-exp1.pdf" class="download-btn">Download PDF</a></div>
-      <div class="item"><h3>L&T</h3><p>MIS Coordinator – Engineer (Civil) (2018–2024)</p><a href="sample-exp2.pdf" class="download-btn">Download PDF</a></div>
-      <div class="item"><h3>L&T</h3><p>Site Execution Engineer – DET (2017–2018)</p><a href="sample-exp3.pdf" class="download-btn">Download PDF</a></div>
-      <div class="item"><h3>IISB</h3><p>Assistant Faculty cum Technical Support (2015–2017)</p><a href="sample-exp4.pdf" class="download-btn">Download PDF</a></div>
-      <div class="item"><h3>Research</h3><p>Published paper on Time & Cost Overrun Prediction (IRJET, 2025)</p><a href="sample-exp5.pdf" class="download-btn">Download PDF</a></div>
-    </div>
-  </section>
+  <main class="main-content">
+    <section id="about" class="section">
+      <h2>About Me</h2>
+      <p>A highly skilled Civil Engineer and experienced MIS & Operations Coordinator with $7\frac{1}{2}$ years at Larsen & Toubro. I possess a unique blend of technical expertise and problem-solving skills, and I've honed my abilities to approach complex challenges with a creative mindset. I use my knowledge of programming and automation to streamline processes and build efficient solutions. My passion for data analysis and visualization enables me to easily interpret and express complex insights. I am proficient in Advanced Excel, Python, Power BI, VBA, Power Apps, and Power Automate, and am confident in my ability to add value to any organization seeking greater efficiency and success.</p>
+    </section>
 
-  <section id="education" class="section">
-    <h2>Education</h2>
-    <div class="grid">
-      <div class="item"><h3>B.Tech Construction Technology</h3><p>VIT Vellore – CGPA 8.72 (2025)</p><a href="sample-edu1.pdf" class="download-btn">Download PDF</a></div>
-      <div class="item"><h3>Diploma in Civil Engineering</h3><p>Jalpaiguri Govt. Polytechnic – 79% (2017)</p><a href="sample-edu2.pdf" class="download-btn">Download PDF</a></div>
-      <div class="item"><h3>Madhyamik (10th)</h3><p>WBBSE – 63.25% (2011)</p><a href="sample-edu3.pdf" class="download-btn">Download PDF</a></div>
-      <div class="item"><h3>Certifications</h3><p>NPTEL, PMI-USA, Power Automate</p><a href="sample-edu4.pdf" class="download-btn">Download PDF</a></div>
-      <div class="item"><h3>Workshops</h3><p>SCDM Primavera P6 (2025)</p><a href="sample-edu5.pdf" class="download-btn">Download PDF</a></div>
-    </div>
-  </section>
+    <section id="skills" class="section">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill">
+          <span class="icon">📊</span>
+          <h3>Data & MIS</h3>
+          <p>Power BI, Advanced Excel, Data Analysis, Powerpoint</p>
+        </div>
+        <div class="skill">
+          <span class="icon">💻</span>
+          <h3>Programming</h3>
+          <p>Python, VBA, JavaScript, Visual Basic</p>
+        </div>
+        <div class="skill">
+          <span class="icon">🛠️</span>
+          <h3>Tools & Platforms</h3>
+          <p>MS Office Suite, Outlook, MS Teams, Adobe Pro</p>
+        </div>
+        <div class="skill">
+          <span class="icon">🤖</span>
+          <h3>Process Automation</h3>
+          <p>Power Automate, Power Apps, MS Flow, RPA, Batch File</p>
+        </div>
+        <div class="skill">
+          <span class="icon">🏗️</span>
+          <h3>Project Management</h3>
+          <p>MS Project, Primavera</p>
+        </div>
+      </div>
+    </section>
 
-  <section id="skills" class="section">
-    <h2>Skills</h2>
-    <div class="scroll-gallery">
-      <img src="skill1.jpg" alt="Skill 1">
-      <img src="skill2.jpg" alt="Skill 2">
-      <img src="skill3.jpg" alt="Skill 3">
-      <img src="skill4.jpg" alt="Skill 4">
-      <img src="skill5.jpg" alt="Skill 5">
-    </div>
-    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download PDF</a>
-  </section>
+    <section id="experience" class="section">
+      <h2>Experience</h2>
+      <div class="info-card-container">
+        <div class="info-card expandable-item">
+          <h3>Cluster Operations & Digital Coordinator (CIVIL Engineer)</h3>
+          <p>Larsen & Toubro Ltd | May 2024 - Present</p>
+          <ul>
+            <li>Managing 8 major Rural Water Supply projects valued at 3000 Cr across West Bengal and Jharkhand.</li>
+            <li>Leading cross-functional coordination and overseeing operational efficiency through strategic project management.</li>
+            <li>Spearheading the end-to-end rollout of digital initiatives aligned with organizational goals.</li>
+          </ul>
+          <button class="read-more-btn" data-modal-id="exp1">Read More</button>
+        </div>
 
-  <section id="projects" class="section">
-    <h2>Projects</h2>
-    <div class="scroll-gallery">
-      <img src="project1.jpg" alt="Project 1">
-      <img src="project2.jpg" alt="Project 2">
-      <img src="project3.jpg" alt="Project 3">
-      <img src="project4.jpg" alt="Project 4">
-      <img src="project5.jpg" alt="Project 5">
-    </div>
-    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download PDF</a>
-  </section>
+        <div class="info-card expandable-item">
+          <h3>Cluster & Segment MIS Coordinator (CIVIL Engineer)</h3>
+          <p>Larsen & Toubro Ltd | Apr 2018 - May 2024</p>
+          <ul>
+            <li>Managed MIS functions for 45+ projects worth 15,000 Cr across Southern & Eastern India.</li>
+            <li>Oversaw project tracking, QMS reporting, and work & purchase order oversight.</li>
+            <li>Successfully implemented digital tools for daily progress reporting & resource monitoring.</li>
+          </ul>
+          <button class="read-more-btn" data-modal-id="exp2">Read More</button>
+        </div>
+      </div>
+    </section>
 
-  <section id="certifications" class="section">
-    <h2>Certifications</h2>
-    <div class="scroll-gallery">
-      <img src="cert1.jpg" alt="Certification 1">
-      <img src="cert2.jpg" alt="Certification 2">
-      <img src="cert3.jpg" alt="Certification 3">
-      <img src="cert4.jpg" alt="Certification 4">
-      <img src="cert5.jpg" alt="Certification 5">
-    </div>
-    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download PDF</a>
-  </section>
+    <section id="education" class="section">
+      <h2>Education</h2>
+      <div class="info-card-container">
+        <div class="info-card expandable-item">
+          <h3>Bachelor in Technology (B.Tech) in Construction Technology</h3>
+          <p>VIT-Vellore | Currently Pursuing</p>
+          <ul>
+            <li>Pursuing through the Work-Integrated Learning Programme (WILP) at VIT-Vellore.</li>
+            <li>Gaining advanced knowledge in modern construction technologies and management.</li>
+          </ul>
+          <button class="read-more-btn" data-modal-id="edu1">Read More</button>
+        </div>
 
-  <section id="achievements" class="section">
-    <h2>Achievements</h2>
-    <div class="scroll-gallery">
-      <img src="ach1.jpg" alt="Achievement 1">
-      <img src="ach2.jpg" alt="Achievement 2">
-      <img src="ach3.jpg" alt="Achievement 3">
-      <img src="ach4.jpg" alt="Achievement 4">
-      <img src="ach5.jpg" alt="Achievement 5">
-    </div>
-    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download PDF</a>
-  </section>
+        <div class="info-card expandable-item">
+          <h3>Bachelor of Engineering in Computer Science</h3>
+          <p>Jadavpur University | 2015 - 2019</p>
+          <ul>
+            <li>Graduated with First-Class Honors.</li>
+            <li>Participated in various hackathons and coding competitions.</li>
+          </ul>
+          <button class="read-more-btn" data-modal-id="edu2">Read More</button>
+        </div>
+      </div>
+    </section>
 
-  <section id="contact" class="section">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:md.momenur.rahaman@gmail.com">md.momenur.rahaman@gmail.com</a></p>
-    <p>Phone: +91 7001379996</p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/momenurrahaman" target="_blank">linkedin.com/in/momenurrahaman</a></p>
-    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download CV</a>
-  </section>
+    <section id="projects" class="section">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <img src="https://placehold.co/400x200/f0f0f0/333?text=Automation+Project" alt="Project 1">
+          <div class="project-content">
+            <h3>Process Automation with Power Automate</h3>
+            <p>Developed and deployed several process automation solutions using Power Automate to streamline administrative and reporting tasks, saving significant manual effort and improving data accuracy across multiple projects.</p>
+            <a href="#">Learn More</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="https://placehold.co/400x200/f0f0f0/333?text=Dashboard+Project" alt="Project 2">
+          <div class="project-content">
+            <h3>Real-time Project MIS Dashboard</h3>
+            <p>Created interactive dashboards using Power BI and Advanced Excel to provide a single-source view of project status, financial health, and resource allocation for senior management and project teams.</p>
+            <a href="#">Learn More</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="https://placehold.co/400x200/f0f0f0/333?text=Excel+VBA+Project" alt="Project 3">
+          <div class="project-content">
+            <h3>VBA-Based Reporting System</h3>
+            <p>Engineered an Excel-based reporting system using VBA scripts to automate the generation of weekly and monthly MIS reports, reducing report generation time from hours to minutes.</p>
+            <a href="#">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="section">
+      <h2>Certifications</h2>
+      <div class="gallery-container">
+        <div class="scroll-gallery">
+          <div class="gallery-card">
+            <img src="https://placehold.co/400x200/6652B6/ffffff?text=Project+Resource+Optimization" alt="Certification 1" class="gallery-card-image">
+            <div class="gallery-card-content">
+              <span class="gallery-card-category">Course</span>
+              <h3 class="gallery-card-title">Project Resource Optimization</h3>
+              <div class="gallery-card-details">
+                <div class="details-row">
+                  <span>🏆 L&T Edutech & IIT Madras</span>
+                  <span>📅 Jul 2024</span>
+                </div>
+                <p class="gallery-card-description">Completed a course on optimizing project resources, focusing on efficient allocation and utilization to ensure timely and cost-effective project delivery.</p>
+                <a href="#" class="action-link">Explore</a>
+              </div>
+            </div>
+          </div>
+          <div class="gallery-card">
+            <img src="https://placehold.co/400x200/5266B6/ffffff?text=Excel+Fundamentals" alt="Certification 2" class="gallery-card-image">
+            <div class="gallery-card-content">
+              <span class="gallery-card-category">Course</span>
+              <h3 class="gallery-card-title">Excel Fundamentals for Data Analysis</h3>
+              <div class="gallery-card-details">
+                <div class="details-row">
+                  <span>🎓 Macquarie University</span>
+                  <span>🌐 Coursera</span>
+                </div>
+                <p class="gallery-card-description">A foundational course from Macquarie University, Sydney, Australia, focusing on key Excel functions and techniques for effective data analysis and manipulation.</p>
+                <a href="#" class="action-link">Explore</a>
+              </div>
+            </div>
+          </div>
+          <div class="gallery-card">
+            <img src="https://placehold.co/400x200/B65266/ffffff?text=RPA+in+a+Day" alt="Certification 3" class="gallery-card-image">
+            <div class="gallery-card-content">
+              <span class="gallery-card-category">Workshop</span>
+              <h3 class="gallery-card-title">RPA in a Day</h3>
+              <div class="gallery-card-details">
+                <div class="details-row">
+                  <span>⚙️ Tangentia / UB Technology</span>
+                  <span>📅 Apr 2023 / Feb 2022</span>
+                </div>
+                <p class="gallery-card-description">Attended an online workshop to gain hands-on experience in Robotic Process Automation (RPA), learning to automate repetitive tasks and improve business efficiency.</p>
+                <a href="#" class="action-link">Explore</a>
+              </div>
+            </div>
+          </div>
+          <div class="gallery-card">
+            <img src="https://placehold.co/400x200/B65252/ffffff?text=MS+Office" alt="Certification 4" class="gallery-card-image">
+            <div class="gallery-card-content">
+              <span class="gallery-card-category">Certifications</span>
+              <h3 class="gallery-card-title">Mastering MS Office Suite</h3>
+              <div class="gallery-card-details">
+                <div class="details-row">
+                  <span>📊 Data Analysis</span>
+                  <span>📑 Word & PPT</span>
+                </div>
+                <p class="gallery-card-description">Completed various certifications focusing on mastering advanced features of PowerPoint, Word, and Excel, including creating dashboards and using pivot tables for data analysis.</p>
+                <a href="#" class="action-link">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download Certifications PDF</a>
+    </section>
+
+    <section id="achievements" class="section">
+      <h2>Achievements</h2>
+      <div class="gallery-container">
+        <div class="scroll-gallery">
+          <div class="gallery-card">
+            <img src="https://placehold.co/400x200/B66652/ffffff?text=Top+Performer" alt="Achievement 1" class="gallery-card-image">
+            <div class="gallery-card-content">
+              <span class="gallery-card-category">Award</span>
+              <h3 class="gallery-card-title">Top Performer of the Year</h3>
+              <div class="gallery-card-details">
+                <div class="details-row">
+                  <span>🏆 FY 2022-23</span>
+                  <span>📅 Jan 2025</span>
+                </div>
+                <p class="gallery-card-description">Recognized as a top performer relative to peers for the Financial Year 2022-23 at L&T, acknowledging contributions and performance.</p>
+                <a href="#" class="action-link">Explore</a>
+              </div>
+            </div>
+          </div>
+          <div class="gallery-card">
+            <img src="https://placehold.co/400x200/52B6B6/ffffff?text=Bizathon" alt="Achievement 2" class="gallery-card-image">
+            <div class="gallery-card-content">
+              <span class="gallery-card-category">Competition</span>
+              <h3 class="gallery-card-title">Elite Runner - ATL Bizathon</h3>
+              <div class="gallery-card-details">
+                <div class="details-row">
+                  <span>🏅 4th Edition</span>
+                  <span>📅 July 2024</span>
+                </div>
+                <p class="gallery-card-description">Awarded Elite Runner in the 4th ATL Bizathon, a business simulation marathon, demonstrating strong strategic and problem-solving skills.</p>
+                <a href="#" class="action-link">Explore</a>
+              </div>
+            </div>
+          </div>
+          <div class="gallery-card">
+            <img src="https://placehold.co/400x200/5252B6/ffffff?text=RAPL+Leaderboard" alt="Achievement 3" class="gallery-card-image">
+            <div class="gallery-card-content">
+              <span class="gallery-card-category">Ranking</span>
+              <h3 class="gallery-card-title">3rd Position - RAPL Leaderboard</h3>
+              <div class="gallery-card-details">
+                <div class="details-row">
+                  <span>🥉 All Users</span>
+                  <span>📅 Jan 2021</span>
+                </div>
+                <p class="gallery-card-description">Achieved 3rd position in the Monthly MIS Leaderboard (RAPL-Jan 2021) for WET IC, recognizing consistent high performance and contribution.</p>
+                <a href="#" class="action-link">Explore</a>
+              </div>
+            </div>
+          </div>
+          <div class="gallery-card">
+            <img src="https://placehold.co/400x200/B652B6/ffffff?text=ATL+Champion" alt="Achievement 4" class="gallery-card-image">
+            <div class="gallery-card-content">
+              <span class="gallery-card-category">Recognition</span>
+              <h3 class="gallery-card-title">ATLNext Champion</h3>
+              <div class="gallery-card-details">
+                <div class="details-row">
+                  <span>🏆 2022 & 2020</span>
+                  <span>📅 Feb 2022</span>
+                </div>
+                <p class="gallery-card-description">Recognized as an ATL Champion and ATL Buddy at the 14th ATL Day, and also for ATLNext Champion in 2020 and 2022.</p>
+                <a href="#" class="action-link">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download Achievements PDF</a>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <div class="contact-container">
+        <form id="contact-form" class="contact-form">
+          <p>If you'd like to get in touch, please fill out the form below or use one of the contact links.</p>
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Subject of your message" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Your message..." required></textarea>
+          </div>
+          <button type="submit" class="send-btn">Send Message</button>
+        </form>
+        <div id="message-box"></div>
+      </div>
+      
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/momenurrahaman" target="_blank" class="social-icon">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/momenurrahaman" target="_blank" class="social-icon">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://twitter.com/momenurrahaman" target="_blank" class="social-icon">
+          <i class="fab fa-twitter-square"></i>
+        </a>
+        <a href="mailto:md.momenur.rahaman@gmail.com" class="social-icon">
+            <i class="fas fa-envelope"></i>
+        </a>
+        <a href="tel:+917001379996" class="social-icon">
+            <i class="fas fa-phone"></i>
+        </a>
+        <a href="#" target="_blank" class="social-icon">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" target="_blank" class="social-icon">
+            <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+
+      <div class="contact-buttons">
+        <button id="share-btn" class="download-btn">
+          <i class="fas fa-share-alt"></i> Share this Portfolio
+        </button>
+        <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download CV</a>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    <p>&copy; 2025 Md. Momenur Rahman | Portfolio Website</p>
+    <p>&copy; 2025 Md. Momenur Rahman. All Rights Reserved.</p>
   </footer>
 
-  <script>
-    function showSection(id, event) {
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      event.target.classList.add('active');
+  <!-- Modal for "Read More" content -->
+  <div id="info-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="close-btn">&times;</button>
+      <div id="modal-content-placeholder"></div>
+    </div>
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Scroll to section on link click
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Intersection Observer for scroll animation
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Modal functionality for "Read More"
+    const modal = document.getElementById('info-modal');
+    const modalPlaceholder = document.getElementById('modal-content-placeholder');
+    const closeBtn = document.querySelector('.close-btn');
+    const readMoreBtns = document.querySelectorAll('.read-more-btn');
+
+    const modalContent = {
+      exp1: `
+        <h3>Cluster Operations & Digital Coordinator - L&T</h3>
+        <p>In this role since May 2024, I have been responsible for managing 8 major Rural Water Supply projects valued at over $300 million. This includes overseeing timely execution, cost control, and quality compliance. I also lead cross-functional coordination, review work orders, and spearhead the implementation of digital initiatives to streamline operations and enhance efficiency.</p>
+      `,
+      exp2: `
+        <h3>Cluster & Segment MIS Coordinator - L&T</h3>
+        <p>From April 2018 to May 2024, I managed Management Information System (MIS) functions for over 45 projects across Southern and Eastern India, including Sri Lanka. My responsibilities included project tracking, Quality Management System (QMS) reporting, and overseeing work and purchase orders. A key achievement was implementing digital tools that automated daily progress reporting and resource monitoring, significantly improving data accuracy and operational efficiency.</p>
+      `,
+      edu1: `
+        <h3>Bachelor in Technology (B.Tech) in Construction Technology</h3>
+        <p>I am currently pursuing this degree through the Work-Integrated Learning Programme (WILP) at VIT-Vellore. This program is allowing me to gain advanced, up-to-date knowledge in modern construction technologies while applying it directly to my professional role.</p>
+      `,
+      edu2: `
+        <h3>Bachelor of Engineering in Computer Science</h3>
+        <p>This undergraduate degree provided me with a strong foundation in computer science fundamentals, including algorithms, data structures, and software engineering principles. I actively participated in coding competitions and hackathons, where I first developed my passion for using data and technology to solve complex problems.</p>
+      `
+    };
+
+    readMoreBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.modalId;
+        modalPlaceholder.innerHTML = modalContent[id];
+        modal.classList.add('active');
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // New Contact and Share functionality
+    const contactForm = document.getElementById('contact-form');
+    const shareBtn = document.getElementById('share-btn');
+    const messageBox = document.getElementById('message-box');
+
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        const recipientEmail = "md.momenur.rahaman@gmail.com";
+
+        // Basic validation
+        if (!name || !email || !subject || !message) {
+            showMessage('Please fill in all fields.', 'error');
+            return;
+        }
+
+        const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\n" + message)}`;
+        
+        window.location.href = mailtoLink;
+        
+        // Show success message and reset form
+        showMessage('Your email client has opened with the message. You can send it from there.', 'success');
+        contactForm.reset();
+    });
+
+    shareBtn.addEventListener('click', () => {
+        if (navigator.share) {
+            navigator.share({
+                title: 'MD. Momenur Rahman - Portfolio',
+                text: 'Check out this amazing portfolio website!',
+                url: window.location.href
+            }).catch((error) => {
+                showMessage('Sharing failed: ' + error.message, 'error');
+            });
+        } else {
+            // Fallback for browsers that don't support the Web Share API
+            const dummyInput = document.createElement('input');
+            dummyInput.value = window.location.href;
+            document.body.appendChild(dummyInput);
+            dummyInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummyInput);
+            showMessage('Portfolio link copied to clipboard!', 'success');
+        }
+    });
+
+    function showMessage(msg, type) {
+        messageBox.textContent = msg;
+        messageBox.style.display = 'block';
+        messageBox.style.opacity = 1;
+        messageBox.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
+        messageBox.style.color = type === 'success' ? '#155724' : '#721c24';
+        messageBox.style.border = type === 'success' ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
+
+        setTimeout(() => {
+            messageBox.style.opacity = 0;
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 300);
+        }, 3000);
     }
-  </script>
+  });
+</script>
+
 </body>
 </html>
