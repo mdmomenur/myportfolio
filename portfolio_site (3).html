@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Md. Momenur Rahman - Portfolio</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, #2c3e50, #34495e);
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem;
+      width: 100%;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      letter-spacing: 1px;
+    }
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    nav {
+      background: #2c3e50;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      border-bottom: 3px solid #1abc9c;
+      width: 100%;
+    }
+    nav a {
+      color: white;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    nav a:hover, nav a.active {
+      background: #1abc9c;
+      color: #fff;
+    }
+    .section {
+      flex: 1;
+      width: 100%;
+      min-height: 100vh;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+      display: none;
+      animation: fadeIn 0.6s ease;
+      box-sizing: border-box;
+    }
+    .section.active {
+      display: block;
+    }
+    .section h2 {
+      color: #2c3e50;
+      margin-top: 0;
+      border-bottom: 2px solid #1abc9c;
+      display: inline-block;
+      padding-bottom: 0.3rem;
+    }
+    .profile-img {
+      display: block;
+      margin: 1rem auto;
+      border-radius: 50%;
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border: 4px solid #1abc9c;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    video, img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .item {
+      background: #fafafa;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    }
+    .item img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .download-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: #1abc9c;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .download-btn:hover {
+      background: #16a085;
+    }
+    .scroll-gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+    .scroll-gallery img {
+      height: 150px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: auto;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);} 
+      to {opacity: 1; transform: translateY(0);} 
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Md. Momenur Rahman</h1>
+    <p>Civil Engineer | Project Management | Researcher</p>
+    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download CV</a>
+  </header>
+
+  <nav>
+    <a class="active" onclick="showSection('about', event)">About</a>
+    <a onclick="showSection('experience', event)">Experience</a>
+    <a onclick="showSection('education', event)">Education</a>
+    <a onclick="showSection('skills', event)">Skills</a>
+    <a onclick="showSection('projects', event)">Projects</a>
+    <a onclick="showSection('certifications', event)">Certifications</a>
+    <a onclick="showSection('achievements', event)">Achievements</a>
+    <a onclick="showSection('contact', event)">Contact</a>
+  </nav>
+
+  <section id="about" class="section active">
+    <h2>About</h2>
+    <img src="profile.jpg" alt="Profile Photo" class="profile-img">
+    <p>I am a dedicated and passionate Civil Engineer with over 7 years of diverse experience at Larsen & Toubro, specializing in project management, MIS, and operations. I excel at leveraging technology and data-driven strategies to streamline processes, enhance efficiency, and ensure successful delivery of large-scale infrastructure projects. Currently pursuing a B.Tech in Construction Technology from VIT-Vellore, I combine practical field knowledge with cutting-edge digital tools like Power BI, Python, and Primavera P6 to drive impactful outcomes. Beyond my professional role, I am an avid learner and researcher, having published work on cost and time overrun prediction models, and I continue to explore new technologies that transform the engineering landscape.</p>
+    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download CV</a>
+  </section>
+
+  <section id="experience" class="section">
+    <h2>Experience</h2>
+    <div class="grid">
+      <div class="item"><h3>Larsen & Toubro Ltd</h3><p>Cluster Operations & Digital Coordinator – Engineer (Civil) (2024–Present)</p><a href="sample-exp1.pdf" class="download-btn">Download PDF</a></div>
+      <div class="item"><h3>L&T</h3><p>MIS Coordinator – Engineer (Civil) (2018–2024)</p><a href="sample-exp2.pdf" class="download-btn">Download PDF</a></div>
+      <div class="item"><h3>L&T</h3><p>Site Execution Engineer – DET (2017–2018)</p><a href="sample-exp3.pdf" class="download-btn">Download PDF</a></div>
+      <div class="item"><h3>IISB</h3><p>Assistant Faculty cum Technical Support (2015–2017)</p><a href="sample-exp4.pdf" class="download-btn">Download PDF</a></div>
+      <div class="item"><h3>Research</h3><p>Published paper on Time & Cost Overrun Prediction (IRJET, 2025)</p><a href="sample-exp5.pdf" class="download-btn">Download PDF</a></div>
+    </div>
+  </section>
+
+  <section id="education" class="section">
+    <h2>Education</h2>
+    <div class="grid">
+      <div class="item"><h3>B.Tech Construction Technology</h3><p>VIT Vellore – CGPA 8.72 (2025)</p><a href="sample-edu1.pdf" class="download-btn">Download PDF</a></div>
+      <div class="item"><h3>Diploma in Civil Engineering</h3><p>Jalpaiguri Govt. Polytechnic – 79% (2017)</p><a href="sample-edu2.pdf" class="download-btn">Download PDF</a></div>
+      <div class="item"><h3>Madhyamik (10th)</h3><p>WBBSE – 63.25% (2011)</p><a href="sample-edu3.pdf" class="download-btn">Download PDF</a></div>
+      <div class="item"><h3>Certifications</h3><p>NPTEL, PMI-USA, Power Automate</p><a href="sample-edu4.pdf" class="download-btn">Download PDF</a></div>
+      <div class="item"><h3>Workshops</h3><p>SCDM Primavera P6 (2025)</p><a href="sample-edu5.pdf" class="download-btn">Download PDF</a></div>
+    </div>
+  </section>
+
+  <section id="skills" class="section">
+    <h2>Skills</h2>
+    <div class="scroll-gallery">
+      <img src="skill1.jpg" alt="Skill 1">
+      <img src="skill2.jpg" alt="Skill 2">
+      <img src="skill3.jpg" alt="Skill 3">
+      <img src="skill4.jpg" alt="Skill 4">
+      <img src="skill5.jpg" alt="Skill 5">
+    </div>
+    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download PDF</a>
+  </section>
+
+  <section id="projects" class="section">
+    <h2>Projects</h2>
+    <div class="scroll-gallery">
+      <img src="project1.jpg" alt="Project 1">
+      <img src="project2.jpg" alt="Project 2">
+      <img src="project3.jpg" alt="Project 3">
+      <img src="project4.jpg" alt="Project 4">
+      <img src="project5.jpg" alt="Project 5">
+    </div>
+    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download PDF</a>
+  </section>
+
+  <section id="certifications" class="section">
+    <h2>Certifications</h2>
+    <div class="scroll-gallery">
+      <img src="cert1.jpg" alt="Certification 1">
+      <img src="cert2.jpg" alt="Certification 2">
+      <img src="cert3.jpg" alt="Certification 3">
+      <img src="cert4.jpg" alt="Certification 4">
+      <img src="cert5.jpg" alt="Certification 5">
+    </div>
+    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download PDF</a>
+  </section>
+
+  <section id="achievements" class="section">
+    <h2>Achievements</h2>
+    <div class="scroll-gallery">
+      <img src="ach1.jpg" alt="Achievement 1">
+      <img src="ach2.jpg" alt="Achievement 2">
+      <img src="ach3.jpg" alt="Achievement 3">
+      <img src="ach4.jpg" alt="Achievement 4">
+      <img src="ach5.jpg" alt="Achievement 5">
+    </div>
+    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download PDF</a>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:md.momenur.rahaman@gmail.com">md.momenur.rahaman@gmail.com</a></p>
+    <p>Phone: +91 7001379996</p>
+    <p>LinkedIn: <a href="https://www.linkedin.com/in/momenurrahaman" target="_blank">linkedin.com/in/momenurrahaman</a></p>
+    <a href="MD Momenur Rahaman.pdf" class="download-btn" target="_blank">📄 Download CV</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Md. Momenur Rahman | Portfolio Website</p>
+  </footer>
+
+  <script>
+    function showSection(id, event) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
