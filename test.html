@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Certifications Gallery</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f4f4f4; }
+    h2 { text-align: center; }
+    
+    /* Gallery */
+    .gallery-container { overflow-x: auto; }
+    .gallery { display: flex; gap: 1rem; }
+    .gallery-card {
+      flex: 0 0 auto;
+      width: 280px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .gallery-card:hover { transform: translateY(-5px); }
+    .gallery-card img { width: 100%; height: 160px; object-fit: cover; }
+    .gallery-card-content { padding: 15px; }
+    .gallery-card-title { font-size: 1.1rem; margin: 8px 0; }
+    .gallery-card-description { font-size: 0.9rem; color: #555; }
+    .action-link {
+      margin-top: 10px;
+      display: inline-block;
+      background: #3498db;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Modal */
+    .cert-modal {
+      display: none;
+      position: fixed;
+      z-index: 3000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+    .cert-modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 700px;
+      text-align: center;
+      position: relative;
+    }
+    .cert-modal .close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .download-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #3498db;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Certifications</h2>
+<div class="gallery-container">
+  <div id="cert-gallery" class="gallery"></div>
+</div>
+
+<!-- Modal -->
+<div id="certModal" class="cert-modal">
+  <div class="cert-modal-content">
+    <span class="close-btn">&times;</span>
+    <h3 id="cert-title"></h3>
+    <embed id="cert-file" src="" type="application/pdf" width="100%" height="400px"/>
+    <p id="cert-description"></p>
+    <a id="cert-download" href="" download class="download-btn">⬇ Download Certificate</a>
+  </div>
+</div>
+
+<!-- PapaParse -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
+<script>
+// Load certifications from CSV
+Papa.parse("certifications.csv", {
+  download: true,
+  header: true,
+  complete: function(results) {
+    const gallery = document.getElementById("cert-gallery");
+    results.data.forEach(cert => {
+      if (!cert.id) return;
+      gallery.innerHTML += `
+        <div class="gallery-card">
+          <img src="${cert.thumb}" alt="${cert.title}">
+          <div class="gallery-card-content">
+            <h3 class="gallery-card-title">${cert.title}</h3>
+            <div class="gallery-card-details">
+              <div><b>🏆 ${cert.issuer}</b> &nbsp; | &nbsp; 📅 ${cert.date}</div>
+              <p class="gallery-card-description">${cert.description}</p>
+              <button class="action-link open-cert-modal" data-id="${cert.id}">Explore</button>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    // Modal logic
+    const modal = document.getElementById("certModal");
+    const modalTitle = document.getElementById("cert-title");
+    const modalFile = document.getElementById("cert-file");
+    const modalDesc = document.getElementById("cert-description");
+    const modalDownload = document.getElementById("cert-download");
+    const closeBtn = document.querySelector(".cert-modal .close-btn");
+
+    document.querySelectorAll(".open-cert-modal").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const cert = results.data.find(c => c.id === btn.getAttribute("data-id"));
+        modalTitle.textContent = cert.title;
+        modalFile.src = cert.file;
+        modalDesc.textContent = cert.description;
+        modalDownload.href = cert.file;
+        modal.style.display = "flex";
+      });
+    });
+
+    closeBtn.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; }
+  }
+});
+</script>
+</body>
+</html>
