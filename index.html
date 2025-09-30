@@ -257,11 +257,16 @@
 
     /* Gallery Section Styling */
     .gallery-container {
-      width: 100%;
-      overflow: hidden;
-      margin-top: 2rem;
-      position: relative;
-    }
+	  width: 100%;
+	  overflow-x: auto;       /* needed for drag */
+	  overflow-y: hidden;
+	  margin-top: 2rem;
+	  position: relative;
+	  scrollbar-width: none;  /* hide scrollbar for Firefox */
+	}
+	.gallery-container::-webkit-scrollbar {
+	  display: none;          /* hide scrollbar for Chrome/Safari */
+	}				
     .scroll-gallery {
       display: flex;
       white-space: nowrap;
@@ -564,6 +569,52 @@
     .close-btn:hover {
       color: #333;
     }
+	
+	.whatsapp-btn-header {
+	  display: inline-block;
+	  margin-top: 1rem;
+	  padding: 0.6rem 1.2rem;
+	  background-color: #25D366;
+	  color: white;
+	  font-size: 1rem;
+	  font-weight: bold;
+	  border-radius: 25px;
+	  text-decoration: none;
+	  transition: background 0.3s ease, transform 0.2s ease;
+	}
+	.whatsapp-btn-header:hover {
+	  background-color: #1ebe57;
+	  transform: translateY(-2px);
+	}
+	
+	.contact-sidebar {
+	  position: fixed;
+	  top: 50%;
+	  left: 0;
+	  transform: translateY(-50%);
+	  display: flex;
+	  flex-direction: column;
+	  gap: 15px;
+	  background: rgba(255, 255, 255, 0.9);
+	  padding: 10px;
+	  border-radius: 0 8px 8px 0;
+	  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+	  z-index: 2000;
+	}
+	.contact-sidebar a {
+	  font-size: 1.5rem;
+	  color: var(--primary-color);
+	  transition: transform 0.2s ease, color 0.3s ease;
+	}
+	.contact-sidebar a:hover {
+	  transform: scale(1.2);
+	  color: var(--accent-color);
+	}
+
+
+
+
+
   </style>
 </head>
 <body>
@@ -571,6 +622,9 @@
   <header>
     <h1>Md. Momenur Rahaman</h1>
     <p>Civil Engineer | MIS & Operations Coordinator</p>
+	<a href="https://wa.me/917001379996" target="_blank" class=	"whatsapp-btn-header">
+	  <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+	</a>
   </header>
 
   <nav>
@@ -1025,7 +1079,11 @@
         <a href="https://youtube.com/@simplified5760?si=Oqh5NjdIO7ORbJC7" class="social-icon">
             <i class="fab fa-youtube"></i>
         </a>
+		<a href="https://wa.me/917001379996" target="_blank" class="social-icon">
+			<i class="fab fa-whatsapp"></i>
+		</a>
       </div>
+
 
       <div class="contact-buttons">
         <button id="share-btn" class="download-btn">
@@ -1043,10 +1101,22 @@
   <!-- Modal for "Read More" content -->
   <div id="info-modal" class="modal-overlay">
     <div class="modal-content">
-      <button class="close-somooth">&times;</button>
+      <button class="close-btn">&times;</button>
       <div id="modal-content-placeholder"></div>
     </div>
   </div>
+  
+  <div class="contact-sidebar">
+  <a href="https://wa.me/917001379996" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  <a href="tel:+917001379996" title="Call"><i class="fas fa-phone"></i></a>
+  <a href="mailto:md.momenur.rahaman@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+  <a href="https://www.linkedin.com/in/momenurrahaman" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+</div>
+
+
+
+
+
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -1055,7 +1125,7 @@
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'somooth'
+          behavior: 'smooth'
         });
       });
     });
@@ -1092,11 +1162,11 @@
       `,
       edu1: `
         <h3>Bachelor in Technology (B.Tech) in Construction Technology</h3>
-        <p>I have successfully completed my degree through the Work-Integrated Learning Programme (WILP) at VIT-Vellore, securing 4th rank with a CGPA of 8.8. This program enabled me to gain advanced, up-to-date knowledge in modern construction technologies while applying it directly to my professional role</p>
+        <p>I am currently pursuing this degree through the Work-Integrated Learning Programme (WILP) at VIT-Vellore. This program is allowing me to gain advanced, up-to-date knowledge in modern construction technologies while applying it directly to my professional role.</p>
       `,
       edu2: `
         <h3>Bachelor of Engineering in Computer Science</h3>
-        <p>Successfully completed a 3-year Diploma in Civil Engineering with First Class with Distinction, securing a CGPA of 8.3. The program built a strong foundation in structural analysis, construction materials, and project management. Hands-on training and site exposure further strengthened my interest in applying engineering principles and modern construction practices to real-world infrastructure development</p>
+        <p>This undergraduate degree provided me with a strong foundation in computer science fundamentals, including algorithms, data structures, and software engineering principles. I actively participated in coding competitions and hackathons, where I first developed my passion for using data and technology to solve complex problems.</p>
       `
     };
 
@@ -1190,6 +1260,42 @@
         }, 3000);
     }
   });
+  
+  // Enable drag-to-scroll only
+document.querySelectorAll('.gallery-container').forEach(container => {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  container.addEventListener('mousedown', e => {
+    isDown = true;
+    startX = e.pageX - container.offsetLeft;
+    scrollLeft = container.scrollLeft;
+    container.style.cursor = 'grabbing';
+  });
+
+  container.addEventListener('mouseleave', () => {
+    isDown = false;
+    container.style.cursor = 'grab';
+  });
+
+  container.addEventListener('mouseup', () => {
+    isDown = false;
+    container.style.cursor = 'grab';
+  });
+
+  container.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - container.offsetLeft;
+    const walk = (x - startX) * 2; // adjust speed
+    container.scrollLeft = scrollLeft - walk;
+  });
+
+  // Cursor style
+  container.style.cursor = 'grab';
+});
+
 </script>
 
 </body>
