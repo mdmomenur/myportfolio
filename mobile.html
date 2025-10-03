@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD Momenur Rahaman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ8g/z0QjWq6qgRSHJ7388C838vQ14iM9A+d3NfF+gq49iT5bA/5F5t5C/1z/8A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Custom Font and Global Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth; /* 7. Smooth scrolling for navigation */
+        }
+
+        /* Define CSS Variables for Theming */
+        :root {
+            /* Light Theme */
+            --bg-color: #F3F4F6;
+            --text-color: #1F2937;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --accent-primary: #3B82F6;
+            --accent-secondary: #0D1625;
+            --header-bg: rgba(255, 255, 255, 0.95);
+        }
+        .dark:root {
+            /* Dark Theme */
+            --bg-color: #0D1625;
+            --text-color: #D1D5DB;
+            --card-bg: #1A2430;
+            --border-color: #374151;
+            --accent-primary: #3B82F6;
+            --accent-secondary: #FFFFFF;
+            --header-bg: rgba(13, 22, 37, 0.95);
+        }
+
+        /* Apply Variables using utility classes in HTML below */
+        .bg-page { background-color: var(--bg-color); }
+        .text-main { color: var(--text-color); }
+        .bg-card { background-color: var(--card-bg); }
+        .border-card { border-color: var(--border-color); }
+        .text-accent { color: var(--accent-primary); }
+        .bg-accent-soft { background-color: rgba(59, 130, 246, 0.1); }
+        .header-sticky { background-color: var(--header-bg); }
+
+        /* Skill Bar Animation Setup */
+        .skill-bar-inner {
+            transition: width 2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* --- 3. Timeline Styles Fix --- */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%; /* Center line for desktop */
+            width: 4px;
+            margin-left: -2px;
+            background-color: var(--accent-primary);
+            opacity: 0.3;
+        }
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding-bottom: 20px;
+        }
+        
+        /* Adjusted padding and dot position for perfect centering on desktop */
+        .timeline-item-left {
+            left: -25%;
+            padding-right: 50px; /* Space for dot and card margin */
+            text-align: right;
+        }
+        .timeline-item-right {
+            left: 25%;
+            padding-left: 50px; /* Space for dot and card margin */
+            text-align: left;
+        }
+
+        /* Dot positioning: 16px wide dot, 4px border. Center must be on the 50% line. */
+        .timeline-item-left::after {
+            right: -8px; /* 16px dot starts 8px left of the center line */
+            left: auto;
+        }
+        .timeline-item-right::after {
+            left: -8px; /* 16px dot starts 8px right of the center line */
+            right: auto;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border: 4px solid var(--accent-primary);
+            top: 15px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            z-index: 10;
+        }
+
+        /* Responsive Timeline adjustment for mobile */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 12px;
+                margin-left: 0;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 30px;
+                padding-right: 0;
+                left: 0 !important;
+                text-align: left !important;
+            }
+            .timeline-item-left, .timeline-item-right {
+                padding-left: 30px;
+                padding-right: 0;
+            }
+            .timeline-item-left::after, .timeline-item-right::after {
+                left: 6px; /* Dot position next to the new left line */
+                right: auto;
+            }
+        }
+
+        /* Projects Filtering */
+        .project-card:not(.active) {
+            display: none;
+        }
+
+        /* --- Testimonial Carousel Styles --- */
+        .testimonial-carousel {
+            display: flex;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            cursor: grab;
+        }
+        .testimonial-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        .testimonial-card {
+            flex: 0 0 90%;
+            scroll-snap-align: start;
+        }
+        @media (min-width: 768px) {
+            .testimonial-card {
+                flex: 0 0 32%;
+            }
+        }
+
+        /* --- Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        /* --- Sidebar Styles --- */
+        .sidebar {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: 40;
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: block;
+            }
+        }
+
+        /* --- 1. Theme Toggle Switch Style --- */
+        #theme-toggle-indicator.dark-mode {
+            transform: translateX(100%);
+        }
+        #theme-toggle-indicator.light-mode {
+            transform: translateX(0);
+        }
+		
+		
+		
+		
+		
+		
+		
+    </style>
+    <script>
+        // Custom Tailwind Configuration for theme consistency
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#0D1625',
+                        'dark-card': '#1A2430',
+                        'accent': '#3B82F6',
+                        'light-bg': '#F3F4F6',
+                        'light-card': '#FFFFFF',
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-page text-main transition-colors duration-500">
+
+    <header id="navbar" class="header-sticky fixed w-full z-50 shadow-lg border-b border-card transition-all duration-500 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#home" class="text-xl font-bold text-accent flex items-center space-x-3">
+                <img id="header-profile-img" src="https://raw.githubusercontent.com/mdmomenur/myportfolio/refs/heads/main/ProfilePic.jpg" onerror="this.src='https://raw.githubusercontent.com/mdmomenur/myportfolio/refs/heads/main/ProfilePic.jpg'" alt="MR" class="w-10 h-10 rounded-full object-cover transition-all duration-300 border-2 border-accent opacity-0" style="transition: opacity 0.3s, transform 0.3s;">
+                <span>MD MOMENUR RAHAMAN</span>
+            </a>
+
+            <nav class="hidden md:flex space-x-8 font-medium">
+                <a href="#home" class="nav-link text-main hover:text-accent transition-colors">Home</a>
+                <a href="#experience" class="nav-link text-main hover:text-accent transition-colors">Experience</a>
+                <a href="#skills" class="nav-link text-main hover:text-accent transition-colors">Skills</a>
+                <a href="#educations" class="nav-link text-main hover:text-accent transition-colors">Educations</a>
+          		<a href="#Featured" class="nav-link text-main hover:text-accent transition-colors">Featured</a>
+                <a href="#certifications" class="nav-link text-main hover:text-accent transition-colors">Certifications</a>
+                <a href="#testimonials" class="nav-link text-main hover:text-accent transition-colors">Testimonials</a>
+                <a href="#contact" class="nav-link text-main hover:text-accent transition-colors">Contact</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-1 rounded-full w-14 h-8 flex items-center transition-all duration-300 relative" style="background-color: var(--accent-primary);">
+                    <div id="theme-toggle-indicator" class="w-6 h-6 rounded-full shadow-md transition-transform duration-300 absolute left-1 flex items-center justify-center">
+                        <i class="fas fa-moon text-sm text-main toggle-moon"></i>
+                        <i class="fas fa-sun text-sm text-main toggle-sun hidden"></i>
+                    </div>
+                </button>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-main hover:text-accent transition-colors">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-2 bg-card border-t border-border-card transition-all duration-300">
+            <a href="#home" class="mobile-nav-link block p-2 rounded-lg text-main hover:bg-accent-soft hover:text-accent">Home</a>
+            <a href="#experience" class="mobile-nav-link block p-2 rounded-lg text-main hover:bg-accent-soft hover:text-accent">Experience</a>
+            <a href="#skills" class="mobile-nav-link block p-2 rounded-lg text-main hover:bg-accent-soft hover:text-accent">Skills</a>
+			<a href="#educations" class="mobile-nav-link block p-2 rounded-lg text-main hover:bg-accent-soft hover:text-accent">Educations</a>			
+            <a href="#projects" class="mobile-nav-link block p-2 rounded-lg text-main hover:bg-accent-soft hover:text-accent">Projects</a>
+            <a href="#certifications" class="mobile-nav-link block p-2 rounded-lg text-main hover:bg-accent-soft hover:text-accent">Certifications</a>
+            <a href="#testimonials" class="mobile-nav-link block p-2 rounded-lg text-main hover:bg-accent-soft hover:text-accent">Testimonials</a>
+            <a href="#contact" class="mobile-nav-link block p-2 rounded-lg text-main hover:bg-accent-soft hover:text-accent">Contact</a>
+        </nav>
+    </header>
+
+    <aside class="sidebar hidden lg:block bg-card rounded-l-xl p-4 shadow-2xl border-l border-t border-b border-border-card">
+        <div class="flex flex-col space-y-5">
+            <a href="mailto:md.momenur.rahaman@gmail.com" class="text-main hover:text-accent transition-colors text-2xl" title="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="tel:+917001379996" class="text-main hover:text-accent transition-colors text-2xl" title="Phone">
+                <i class="fas fa-phone"></i>
+            </a>
+            <a href="https://wa.me/917001379996" target="_blank" class="text-main hover:text-accent transition-colors text-2xl" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/momenurrahaman" target="_blank" class="text-main hover:text-accent transition-colors text-2xl" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/mdmomenur" target="_blank" class="text-main hover:text-accent transition-colors text-2xl" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </aside>
+
+    <main class="pt-24">
+        <section id="home" class="max-w-7xl mx-auto px-6 lg:px-8 py-8 md:py-4">
+            <div id="hero-content" class="bg-card p-8 md:p-12 rounded-2xl shadow-xl border border-card transition-colors duration-500">
+                <div class="flex flex-col lg:flex-row items-center lg:items-start space-y-8 lg:space-y-0 lg:space-x-12">
+                    <div class="relative flex-shrink-0">
+                        <img id="hero-profile-img" src="https://raw.githubusercontent.com/mdmomenur/myportfolio/refs/heads/main/ProfilePic.jpg" onerror="this.src='https://raw.githubusercontent.com/mdmomenur/myportfolio/refs/heads/main/ProfilePic.jpg'" alt="MD. Momenur Rahman Profile" class="w-44 h-44 rounded-full object-cover border-4 border-accent shadow-lg transition-all duration-300">
+                    </div>
+
+                    <div class="flex-grow text-center lg:text-left">
+                        <h1 class="text-4xl sm:text-5xl font-extrabold text-accent mb-4">
+                            Hello, I'm MD. Momenur Rahman.
+                        </h1>
+                        <p class="text-lg text-main mb-8 max-w-2xl lg:max-w-none mx-auto lg:mx-0">
+                            A highly skilled Civil Engineer and experienced MIS & Operations Coordinator with 8 years at Larsen & Toubro. I possess a unique blend of technical expertise and problem-solving skills, and I've honed my abilities to approach complex challenges with a creative mindset. I use my knowledge of programming and automation to streamline processes and build efficient solutions. My passion for data analysis and visualization enables me to easily interpret and express complex insights. I am proficient in Advanced Excel, Python, Power BI, VBA, Power Apps, and Power Automate, and am confident in my ability to add value to any organization seeking greater efficiency and success..
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center lg:justify-start mb-6">
+                            <a href="https://mdmomenur.github.io/myportfolio/MD%20Momenur%20Rahaman.pdf" class="py-3 px-8 text-white bg-accent hover:bg-blue-600 rounded-lg font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02]">
+                                Download CV
+                            </a>
+                            <a href="https://wa.me/917001379996" class="py-3 px-8 text-accent border border-accent hover:bg-accent hover:text-white rounded-lg font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2">
+                                <span>GET IN TOUCH</span>
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+
+                        <div class="flex space-x-6 justify-center lg:justify-start text-2xl">
+                            <a href="https://www.linkedin.com/in/momenurrahaman" target="_blank" class="text-main hover:text-accent transition-colors"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/mdmomenur" target="_blank" class="text-main hover:text-accent transition-colors"><i class="fab fa-github"></i></a>
+                            <a href="https://x.com/momenur22" target="_blank" class="text-main hover:text-accent transition-colors"><i class="fab fa-twitter"></i></a>
+							<a href="md.momenur.rahaman@gmail.com" target="_blank" class="text-main hover:text-accent transition-colors"><i class="fas fa-envelope"></i></a>
+							<a href="tel:+917001379996" target="_blank" class="text-main hover:text-accent transition-colors"><i class="fas fa-phone"></i></a>
+							<a href="https://www.facebook.com/rajesh.Rahaman.737" target="_blank" class="text-main hover:text-accent transition-colors"><i class="fab fa-facebook"></i></a>
+							<a href="https://youtube.com/@simplified5760?si=Oqh5NjdIO7ORbJC7" target="_blank" class="text-main hover:text-accent transition-colors"><i class="fab fa-youtube"></i></a>
+							<a href="https://wa.me/917001379996" target="_blank" class="text-main hover:text-accent transition-colors"><i class="fab fa-whatsapp"></i></a>
+							
+							
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="skills" class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-main mb-2">Technical Skills</h2>
+            <div class="h-1 w-24 bg-accent mb-12"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 skill-bar-container">
+                <div class="bg-card p-6 rounded-2xl shadow-xl border border-card">
+                    <h3 class="text-xl font-bold text-accent mb-4 flex items-center space-x-2">
+                        <i class="fas fa-drafting-compass"></i>
+                        <span>Civil & Construction Tools</span>
+                    </h3>
+                    <div class="mb-5" data-skill-level="95">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Project Monitoring & Reporting</span>
+                            <span class="text-green-500 font-semibold">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[95%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-5" data-skill-level="90">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Quantity Estimation & Cost Control</span>
+                            <span class="text-green-500 font-semibold">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[90%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-5" data-skill-level="75">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Project Planning & Scheduling using Primavera P6</span>
+                            <span class="text-green-500 font-semibold">75%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[75%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-5" data-skill-level="75">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">AutoCAD 2D & 3D</span>
+                            <span class="text-green-500 font-semibold">75%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[75%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-0" data-skill-level="75">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Revit & Bentley | BIM</span>
+                            <span class="text-green-500 font-semibold">75%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[75%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-card p-6 rounded-2xl shadow-xl border border-card">
+                    <h3 class="text-xl font-bold text-accent mb-4 flex items-center space-x-2">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Data Analytics, visualization & Process Automation</span>
+                    </h3>
+                    <div class="mb-5" data-skill-level="95">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Excel (Advanced, VBA & Dashboard)</span>
+                            <span class="text-green-500 font-semibold">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[95%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-5" data-skill-level="95">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Power BI & Powerpoint</span>
+                            <span class="text-green-500 font-semibold">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[95%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-5" data-skill-level="85">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Power Automate & Power Apps</span>
+                            <span class="text-green-500 font-semibold">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[85%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-5" data-skill-level="65">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Python</span>
+                            <span class="text-green-500 font-semibold">65%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[65%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-0" data-skill-level="90">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Cloud & Collaboration Tools</span>
+                            <span class="text-green-500 font-semibold">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[90%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-card p-6 rounded-2xl shadow-xl border border-card">
+                    <h3 class="text-xl font-bold text-accent mb-4 flex items-center space-x-2">
+                        <i class="fas fa-users"></i>
+                        <span>Project, Business & Operations Management</span>
+                    </h3>
+                    <div class="mb-5" data-skill-level="80">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Project Planning & Scheduling</span>
+                            <span class="text-green-500 font-semibold">80%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[80%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-5" data-skill-level="85">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Resource & Cost Optimization</span>
+                            <span class="text-green-500 font-semibold">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[85%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-5" data-skill-level="95">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Quality & Safety Management</span>
+                            <span class="text-green-500 font-semibold">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[95%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-5" data-skill-level="95">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Stakeholder Communication (MIS reporting, presentations, Dashboards)</span>
+                            <span class="text-green-500 font-semibold">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[95%]"></div>
+                        </div>
+                    </div>
+                    <div class="mb-0" data-skill-level="75">
+                        <div class="flex justify-between items-center mb-1 text-sm">
+                            <span class="text-main">Risk Assessment & Mitigation</span>
+                            <span class="text-green-500 font-semibold">75%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="skill-bar-inner h-2.5 rounded-full bg-accent w-0" data-width="w-[75%]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="measurable-impact" class="max-w-7xl mx-auto px-6 lg:px-8 py-16 text-center">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-main mb-3">Professional Highlights</h2>
+            <p class="text-lg text-main mb-12">
+         </p>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-card p-6 rounded-2xl shadow-xl border-t-4 border-green-500 transform hover:scale-[1.03] transition-all duration-300 group">
+                    <i class="fas fa-briefcase text-4xl text-green-500 mb-4 transition-colors"></i>
+                    <p class="text-4xl font-extrabold text-main mb-2">
+                        <span class="count-target" data-target="8.0" data-decimals="1">0</span><span>+</span>
+                    </p>
+                    <p class="text-lg font-semibold text-main">Years of Experience</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">At L&T LTD | ECC Division</p>
+                </div>
+                <div class="bg-card p-6 rounded-2xl shadow-xl border-t-4 border-teal-500 transform hover:scale-[1.03] transition-all duration-300 group">
+                    <i class="fas fa-map-marker-alt text-4xl text-teal-500 mb-4 transition-colors"></i>
+                    <p class="text-4xl font-extrabold text-main mb-2">
+                        <span class="count-target" data-target="50">0</span><span>+</span>
+                    </p>
+                    <p class="text-lg font-semibold text-main">Total Projects Coordinated</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Across Southern & Eastern India, incl. Sri Lanka</p>
+                </div>
+                <div class="bg-card p-6 rounded-2xl shadow-xl border-t-4 border-purple-500 transform hover:scale-[1.03] transition-all duration-300 group">
+                    <i class="fas fa-hand-holding-usd text-4xl text-purple-500 mb-4 transition-colors"></i>
+                    <p class="text-4xl font-extrabold text-main mb-2">
+                        <span class="count-target" data-target="18000">0</span><span>+</span><span class="text-xl"> Cr</span>
+                    </p>
+                    <p class="text-lg font-semibold text-main">Project Value Overseen</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Managed MIS & Operations for projects valued ₹18,000+ Cr</p>
+                </div>
+                <div class="bg-card p-6 rounded-2xl shadow-xl border-t-4 border-pink-500 transform hover:scale-[1.03] transition-all duration-300 group">
+                    <i class="fas fa-cogs text-4xl text-pink-500 mb-4 transition-colors"></i>
+                    <p class="text-4xl font-extrabold text-main mb-2">
+                        <span class="count-target" data-target="10">0</span><span>+</span>
+                    </p>
+                    <p class="text-lg font-semibold text-main">Process Automations</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Led end-to-end rollout of digital solutions</p>
+                </div>
+            </div>
+        </section>
+		
+		
+		
+		
+
+        <section id="experience" class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-accent text-center mb-12">Professional Timeline</h2>
+
+            <div class="timeline flex flex-col items-center">
+                <div class="timeline-item timeline-item-left mb-2 md:mb-2 cursor-pointer"
+                    data-type="timeline" data-id="t1" data-title="Cluster Operations & Digital Coordinator (Senior Engineer - CIVIL)" data-period="Cluster Operations & Digital Coordinator - L&T
+In this role since May 2024, I have been responsible for managing 8 major Rural Water Supply projects valued at over $300 million. This includes overseeing timely execution, cost control, and quality compliance. I also lead cross-functional coordination, review work orders, and spearhead the implementation of digital initiatives to streamline operations and enhance efficiency.">
+                    <div class="bg-card p-6 rounded-xl shadow-xl border border-card transform hover:translate-y-[-4px] transition-transform duration-300 hover:border-accent">
+                        <p class="text-sm font-medium text-accent mb-2">May '2024 - Present  |  1 Years and 6 Month</p>
+                     <h4 class="text-lg font-bold text-green-400 mb-2">
+						  Cluster Operations & Digital Coordinator (Senior Engineer - CIVIL) 
+						  <br><img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/L%26T.png" 
+							   style="width:30px;height:30px;border-radius:50%;object-fit:cover;vertical-align:middle;display:inline-block;margin:0 5px;" /> 
+						  Larsen & Toubro Ltd
+						</h4>
+                        <p class="text-main text-sm">
+                            Taking care of Operations and Digital Initives for 8 major Rural Water Supply projects valued at 3000 Crore across West Bengal and Jharkhand.    <br><span class="text-accent hover:underline">Click for details...</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item timeline-item-right mb-2 md:mb-2 cursor-pointer"
+                    data-type="timeline" data-id="t2" data-title="Cluster & Segment MIS Coordinator (Engineer - CIVIL)" data-period="From April 2018 to May 2024, I managed Management Information System (MIS) functions for over 45 projects across Southern and Eastern India, including Sri Lanka. My responsibilities included project tracking, Quality Management System (QMS) reporting, and overseeing work and purchase orders. A key achievement was implementing digital tools that automated daily progress reporting and resource monitoring, significantly improving data accuracy and operational efficiency.">
+                    <div class="bg-card p-6 rounded-xl shadow-xl border border-card transform hover:translate-y-[-4px] transition-transform duration-300 hover:border-accent">
+                            <p class="text-sm font-medium text-accent mb-2">Apr 2018 - May 2024  |  6 Years and 1 Months </p>
+                     <h4 class="text-lg font-bold text-green-400 mb-2">
+						  Cluster & Segment MIS Coordinator <br>(Engineer - CIVIL) 
+						  <br> 
+						  Larsen & Toubro Ltd <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/L%26T.png" 
+							   style="width:30px;height:30px;border-radius:50%;object-fit:cover;vertical-align:middle;display:inline-block;margin:0 5px;" />
+						</h4>
+                        <p class="text-main text-sm">
+                            Managed MIS (Management Information System) functions for 45+ projects worth 15,000 Crore across Southern & Eastern India including Srilanka..    <br><span class="text-accent hover:underline">Click for details...</span>
+                        </p>
+                    </div>
+                </div>
+
+
+
+                <div class="timeline-item timeline-item-left mb-2 md:mb-2 cursor-pointer"
+                    data-type="timeline" data-id="t3" data-title="Site Execution Engineer (Diploma Engineer Trainee)" data-period="Worked on the NRDA Phase II-A Project – Construction of City Level Road Project, gaining valuable exposure in large-scale infrastructure execution.
+
+Road construction supervision and land surveying.
+Construction management and planning support.
+Conducted site inspections to ensure compliance with standards.
+Worked with subcontracts and coordinated on-site execution.
+Performed quantity surveying for project monitoring.">
+                    <div class="bg-card p-6 rounded-xl shadow-xl border border-card transform hover:translate-y-[-4px] transition-transform duration-300 hover:border-accent">
+                        <p class="text-sm font-medium text-accent mb-2">Apr 2018 - May 2024 | 6+ Months</p>
+                        <h4 class="text-lg font-bold text-green-400 mb-2">
+                            Site Execution Engineer <br>(Diploma Engineer Trainee) 
+                            <br>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/L%26T.png" 
+                                 style="width:30px;height:30px;border-radius:50%;object-fit:cover;vertical-align:middle;display:inline-block;margin:0 5px;" />Larsen & Toubro Ltd
+                        </h4>
+                        <p class="text-main text-sm">
+                            Worked on NRDA Phase II-A Project – Construction of City Level Road Project. Involved in quantity surveying and on-site execution ensuring adherence to quality and timelines. <br><span class="text-accent hover:underline">Click for details...</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item timeline-item-right cursor-pointer"
+                    data-type="timeline" data-id="t4" data-title="Asst. Faculty cum Technical Support" data-period="Worked part-time with IISB (Integrated Institute of Skill Building) for 2 years as Assistant Faculty cum Technical Support, handling end-to-end responsibilities that included training students in Diploma and Advanced Diploma in Computer Applications, along with providing comprehensive technical support to the organization from design through to maintenance">
+                    <div class="bg-card p-6 rounded-xl shadow-xl border border-card transform hover:translate-y-[-4px] transition-transform duration-300 hover:border-accent">
+                        <p class="text-sm font-medium text-accent mb-2">Feb 2015 - Feb 2017 | 2 Years</p>
+                        <h4 class="text-lg font-bold text-green-400 mb-2">Assitant Faculty cum Technical Support <br> Integrated Institute of Skill Bilding (IISB) <img src="https://mdmomenurrahaman.page4.me/untitled-1_c2000_2000.jpg" style="width:30px;height:30px;border-radius:50%;object-fit:cover;vertical-align:middle;display:inline-block;margin:0 5px;" /></h4>
+                        <p class="text-main text-sm">
+                            Worked part-time for Training Diploma & Advanced Diploma in Computer Applications & Provided technical support from design to maintenance.<br><span class="text-accent hover:underline">Click for details...</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="educations" class="max-w-7xl mx-auto px-6 lg:px-8 py-4">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-accent text-center mb-12">Education</h2>
+            <div class="timeline flex flex-col items-center">
+                <div class="timeline-item timeline-item-left mb-2 md:mb-2 cursor-pointer"
+                    data-type="timeline" data-id="t3" data-title="Bachelor in Technology (B.Tech) in Construction Technology" data-period="Completed B.Tech through the L&T's Work-Integrated Learning Programme (WILP) at VIT-Vellore, secured 4th rank, with advanced knowledge in modern construction technologies applied directly to professional practice">
+                    <div class="bg-card p-6 rounded-xl shadow-xl border border-card transform hover:translate-y-[-4px] transition-transform duration-300 hover:border-accent">
+                        <p class="text-sm font-medium text-accent mb-2">Jan 2022 - July 2025 | 3.5 Years</p>
+                        <h4 class="text-lg font-bold text-green-400 mb-2">B.Tech in Construction Technology <br> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTzXX8vEZHFWwQOBFENInHpOvI2-iEcxMg7g&s" style="width:30px;height:30px;border-radius:50%;object-fit:cover;vertical-align:middle;display:inline-block;margin:0 5px;" /> Vellore Institute of Technology - Vellore</h4>
+                        <p class="text-main text-sm">
+                            Secured 🏆 4th Rank 🏆 with 8.8 CGPA, L&T Sponsored Work-Integrated Learning Programme (WILP). <span class="text-accent hover:underline"><br>Click for details...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item timeline-item-right mb-2 md:mb-2 cursor-pointer"
+                    data-type="timeline" data-id="t4" data-title="Diploma in Civil Engineering" data-period="Successfully completed with 1st Class with Distinction (CGPA 8.3). Built strong foundations in civil engineering principles, construction practices, and project management.">
+                    <div class="bg-card p-6 rounded-xl shadow-xl border border-card transform hover:translate-y-[-4px] transition-transform duration-300 hover:border-accent">
+                        <p class="text-sm font-medium text-accent mb-2">Jun 2014 - May 2017 | 3 Years</p>
+                        <h4 class="text-lg font-bold text-green-400 mb-2">Diploma in Civil Engineering <br> Jalpaiguri Govt. Polytechnic Institute, Jalpaiguri <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTajsCd8ghL5vkfPAIRSK2yO7raG_1Z4Z7kg&s" style="width:30px;height:30px;border-radius:50%;object-fit:cover;vertical-align:middle;display:inline-block;margin:0 5px;" /></h4>
+                        <p class="text-main text-sm">
+                            Successfully completed with 1st Class with Distinction (CGPA 8.3). <span class="text-accent hover:underline"><br>Click for details...</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications" class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-main mb-2">Certifications & Licenses</h2>
+            <div class="h-1 w-24 bg-accent mb-12"></div>
+            <div id="certification-gallery" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                </div>
+        </section>
+
+        <section id="Featured" class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-main mb-2">Featured</h2>
+            <div class="h-1 w-24 bg-accent mb-12"></div>
+            <div class="flex flex-wrap gap-3 justify-center mb-10">
+                <button class="filter-btn py-2 px-6 rounded-full text-sm font-semibold border border-accent text-accent bg-accent-soft hover:bg-accent hover:text-white transition-colors duration-200 active-filter" data-filter="all">All Projects</button>
+                <button class="filter-btn py-2 px-6 rounded-full text-sm font-semibold border border-border-card text-main hover:border-accent hover:bg-accent-soft hover:text-accent transition-colors duration-200" data-filter="automation">Automation</button>
+                <button class="filter-btn py-2 px-6 rounded-full text-sm font-semibold border border-border-card text-main hover:border-accent hover:bg-accent-soft hover:text-accent transition-colors duration-200" data-filter="dashboard">Dashboard</button>
+                <button class="filter-btn py-2 px-6 rounded-full text-sm font-semibold border border-border-card text-main hover:border-accent hover:bg-accent-soft hover:text-accent transition-colors duration-200" data-filter="misc">Misc.</button>
+            </div>
+
+            <div id="project-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card active bg-card p-6 rounded-2xl shadow-xl border border-card transition-all duration-300 hover:shadow-2xl hover:border-accent" data-category="dashboard" data-title="Comprehensive Project MIS Dashboard" data-desc="Interactive Power BI dashboard for real-time progress tracking, financial monitoring, and resource allocation across 10+ concurrent projects." data-link="https://app.powerbi.com/view?r=eyJrIjoiMDYwMjQ2ZjAtNWJlYS00OWYyLTkwMWEtYTY3M2I3NWQ3ZGE1IiwidCI6IjI2ZWMxYjU2LWYxNzgtNDM0OC1iMjg4LWQzYTdlMTYyNzcyZiIsImMiOjEwfQ%3D%3D" data-platform="Power BI">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-semibold px-3 py-1 bg-accent-soft text-accent rounded-full">Dashboard</span>
+                        <a href="https://app.powerbi.com/view?r=eyJrIjoiMDYwMjQ2ZjAtNWJlYS00OWYyLTkwMWEtYTY3M2I3NWQ3ZGE1IiwidCI6IjI2ZWMxYjU2LWYxNzgtNDM0OC1iMjg4LWQzYTdlMTYyNzcyZiIsImMiOjEwfQ%3D%3D" target="_blank" class="text-main hover:text-accent transition-colors">
+                            <i class="fas fa-external-link-alt text-lg"></i>
+                        </a>
+                    </div>
+                    <h3 class="text-xl font-bold text-main mb-2">Comprehensive Project MIS Dashboard</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Interactive Power BI dashboard for real-time progress tracking, financial monitoring, and resource allocation across 10+ concurrent projects.</p>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">Power BI</span>
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">Data Modeling</span>
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">DAX</span>
+                    </div>
+                </div>
+
+                <div class="project-card active bg-card p-6 rounded-2xl shadow-xl border border-card transition-all duration-300 hover:shadow-2xl hover:border-accent" data-category="automation" data-title="Automated Daily Progress Report (DPR)" data-desc="Python script using Pandas and Openpyxl to read raw data from site, aggregate, validate, and auto-generate the daily MIS report in Excel format." data-link="https://github.com/mdmomenur/Automated-MIS-Daily-Progress-Report" data-platform="Python">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-semibold px-3 py-1 bg-accent-soft text-accent rounded-full">Automation</span>
+                        <a href="https://github.com/mdmomenur/Automated-MIS-Daily-Progress-Report" target="_blank" class="text-main hover:text-accent transition-colors">
+                            <i class="fab fa-github text-lg"></i>
+                        </a>
+                    </div>
+                    <h3 class="text-xl font-bold text-main mb-2">Automated Daily Progress Report (DPR)</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Python script using Pandas and Openpyxl to read raw data from site, aggregate, validate, and auto-generate the daily MIS report in Excel format.</p>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">Python</span>
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">Pandas</span>
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">Openpyxl</span>
+                    </div>
+                </div>
+
+                <div class="project-card active bg-card p-6 rounded-2xl shadow-xl border border-card transition-all duration-300 hover:shadow-2xl hover:border-accent" data-category="automation" data-title="Tender Cost Estimation Automation Tool" data-desc="VBA macro-enabled Excel tool that automatically calculates the total cost, margin, and BOQ items based on various input parameters, reducing estimation time by 60%." data-link="https://github.com/mdmomenur/VBA-based-BOQ-Tool" data-platform="VBA">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-semibold px-3 py-1 bg-accent-soft text-accent rounded-full">Automation</span>
+                        <a href="https://github.com/mdmomenur/VBA-based-BOQ-Tool" target="_blank" class="text-main hover:text-accent transition-colors">
+                            <i class="fab fa-github text-lg"></i>
+                        </a>
+                    </div>
+                    <h3 class="text-xl font-bold text-main mb-2">Tender Cost Estimation Automation Tool</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">VBA macro-enabled Excel tool that automatically calculates the total cost, margin, and BOQ items based on various input parameters, reducing estimation time by 60%.</p>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">VBA</span>
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">Excel</span>
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">BOQ</span>
+                    </div>
+                </div>
+
+                <div class="project-card active bg-card p-6 rounded-2xl shadow-xl border border-card transition-all duration-300 hover:shadow-2xl hover:border-accent" data-category="misc" data-title="Digitized Quality Management System (QMS)" data-desc="Implemented a Power App & Power Automate workflow for paperless inspection requests, approval processes, and automated QMS compliance reporting." data-link="#" data-platform="Power Platform">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-semibold px-3 py-1 bg-accent-soft text-accent rounded-full">Misc.</span>
+                        <button class="text-main hover:text-accent transition-colors modal-trigger" data-title="Digitized Quality Management System (QMS)" data-desc="Implemented a Power App & Power Automate workflow for paperless inspection requests, approval processes, and automated QMS compliance reporting.">
+                            <i class="fas fa-search-plus text-lg"></i>
+                        </button>
+                    </div>
+                    <h3 class="text-xl font-bold text-main mb-2">Digitized Quality Management System (QMS)</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Implemented a Power App & Power Automate workflow for paperless inspection requests, approval processes, and automated QMS compliance reporting.</p>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">Power Apps</span>
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">Power Automate</span>
+                        <span class="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded-full text-main">SharePoint</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-main text-center mb-12">What People Say</h2>
+
+            <div id="testimonial-carousel" class="testimonial-carousel pb-5 space-x-6">
+
+                <div class="testimonial-card bg-card p-8 rounded-2xl shadow-xl border-t-4 border-accent">
+                    <i class="fas fa-quote-left text-3xl text-accent mb-4"></i>
+                    <p class="text-main italic mb-6">"Momenur is a highly effective and process-driven leader. His Power BI dashboards and Python automations transformed our cluster-level reporting, saving countless man-hours. A true asset for digital transformation."</p>
+                    <div class="flex items-center">
+                        <img src="https://mdmomenur.github.io/myportfolio/ProfilePic.jpg" alt="Reviewer" class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-accent">
+                        <div>
+                            <p class="font-bold text-main">XYZ Manager</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Project Director, L&T Ltd.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-card p-8 rounded-2xl shadow-xl border-t-4 border-accent">
+                    <i class="fas fa-quote-left text-3xl text-accent mb-4"></i>
+                    <p class="text-main italic mb-6">"His technical proficiency in Civil Engineering coupled with his data skills is rare. He single-handedly developed the QMS Power App which has brought us closer to a paperless site environment."</p>
+                    <div class="flex items-center">
+                        <img src="https://mdmomenur.github.io/myportfolio/ProfilePic.jpg" alt="Reviewer" class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-accent">
+                        <div>
+                            <p class="font-bold text-main">ABC Colleague</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">QMS Lead, L&T Ltd.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-card p-8 rounded-2xl shadow-xl border-t-4 border-accent">
+                    <i class="fas fa-quote-left text-3xl text-accent mb-4"></i>
+                    <p class="text-main italic mb-6">"An excellent mentor. He makes complex concepts in VBA and Power Automate easy to grasp. His training sessions significantly upskilled our entire MIS department."</p>
+                    <div class="flex items-center">
+                        <img src="https://mdmomenur.github.io/myportfolio/ProfilePic.jpg" alt="Reviewer" class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-accent">
+                        <div>
+                            <p class="font-bold text-main">PQR Trainee</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Junior Engineer, L&T Ltd.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-card p-8 rounded-2xl shadow-xl border-t-4 border-accent">
+                    <i class="fas fa-quote-left text-3xl text-accent mb-4"></i>
+                    <p class="text-main italic mb-6">"Momenur delivered a custom reporting system for our project that integrated three different data sources seamlessly. The level of detail and automation was top-notch. Highly recommended for data-intensive roles."</p>
+                    <div class="flex items-center">
+                        <img src="https://mdmomenur.github.io/myportfolio/ProfilePic.jpg" alt="Reviewer" class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-accent">
+                        <div>
+                            <p class="font-bold text-main">RST Partner</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">External Consultant</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact" class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-accent text-center mb-12">Get In Touch</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="bg-card p-6 rounded-xl shadow-lg border border-card flex items-center space-x-4">
+                        <div class="p-3 rounded-full bg-accent-soft text-accent">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">Email Me</p>
+                            <a href="mailto:md.momenur.rahaman@gmail.com" class="text-main font-bold hover:text-accent transition-colors">md.momenur.rahaman@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="bg-card p-6 rounded-xl shadow-lg border border-card flex items-center space-x-4">
+                        <div class="p-3 rounded-full bg-accent-soft text-accent">
+                            <i class="fas fa-phone-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">Call Me</p>
+                            <a href="tel:+917001379996" class="text-main font-bold hover:text-accent transition-colors">+91 70013 79996</a>
+                        </div>
+                    </div>
+                    <div class="bg-card p-6 rounded-xl shadow-lg border border-card flex items-start space-x-4">
+                        <div class="p-3 rounded-full bg-accent-soft text-accent flex-shrink-0">
+                            <i class="fas fa-map-marker-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">Location</p>
+                            <p class="text-main font-bold">Kolkata, West Bengal, India</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">(Willing to Relocate Globally)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-card p-8 rounded-2xl shadow-xl border border-card">
+                    <h3 class="text-2xl font-bold text-main mb-6">Send Me a Message</h3>
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required class="w-full p-3 rounded-lg border border-border-card bg-bg-page text-main focus:border-accent focus:ring-accent transition-colors">
+                        </div>
+                        <div>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required class="w-full p-3 rounded-lg border border-border-card bg-bg-page text-main focus:border-accent focus:ring-accent transition-colors">
+                        </div>
+                        <div>
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required class="w-full p-3 rounded-lg border border-border-card bg-bg-page text-main focus:border-accent focus:ring-accent transition-colors"></textarea>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="py-3 px-8 text-white bg-accent hover:bg-blue-600 rounded-lg font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center space-x-2">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Send Message</span>
+                            </button>
+                            <button type="button" id="share-button" class="py-3 px-6 text-accent border border-accent hover:bg-accent hover:text-white rounded-lg font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center space-x-2">
+                                <i class="fas fa-share-alt"></i>
+                                <span>Share</span>
+                            </button>
+                        </div>
+                        <p id="form-message" class="text-sm hidden mt-3"></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-card border-t border-border-card py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center text-sm text-gray-500 dark:text-gray-400">
+            <p>&copy; 2024 MD Momenur Rahaman. All Rights Reserved. Built with <span class="text-red-500">&hearts;</span> and Tailwind CSS.</p>
+        </div>
+    </footer>
+
+    <div id="modal-overlay" class="modal-overlay">
+        <div id="modal-content" class="modal-content bg-card p-8 rounded-2xl shadow-2xl border border-card relative">
+            <button id="modal-close" class="absolute top-4 right-4 text-main hover:text-accent transition-colors">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <h3 id="modal-title" class="text-2xl font-bold text-accent mb-4"></h3>
+            <p id="modal-period" class="text-sm font-medium text-main mb-4"></p>
+            <div id="modal-description" class="text-main space-y-4 leading-relaxed whitespace-pre-line"></div>
+        </div>
+    </div>
+
+
+    <button id="scroll-to-top" class="fixed bottom-6 right-6 p-4 rounded-full bg-accent text-white shadow-lg opacity-0 transition-opacity duration-300 z-40 hover:bg-blue-600">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+
+    <script>
+        // Custom Tailwind Configuration is already above...
+
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // ===========================================
+            // MOBILE MENU TOGGLE SCRIPT (Added for mobile-friendliness)
+            // ===========================================
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = mobileMenu.querySelectorAll('a');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close menu when a link is clicked (for better UX)
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // ===========================================
+            // SCROLL TO TOP BUTTON AND HEADER SHADOW (4 & 7)
+            // ===========================================
+            const scrollToTopButton = document.getElementById('scroll-to-top');
+            const navbar = document.getElementById('navbar');
+            const navLinksDesktop = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            const highlightNavLink = () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navbar.offsetHeight - 50; // Adjust for sticky header
+                    if (window.scrollY >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinksDesktop.forEach(link => {
+                    link.classList.remove('text-accent');
+                    link.classList.add('text-main');
+                    if (link.href.includes(`#${current}`)) {
+                        link.classList.add('text-accent');
+                        link.classList.remove('text-main');
+                    }
+                });
+                
+                // Mobile links (for consistency)
+                const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+                mobileNavLinks.forEach(link => {
+                    link.classList.remove('text-accent', 'bg-accent-soft');
+                    if (link.href.includes(`#${current}`)) {
+                        link.classList.add('text-accent', 'bg-accent-soft');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', () => {
+                // Scroll To Top Visibility
+                if (window.scrollY > 300) {
+                    scrollToTopButton.classList.remove('opacity-0');
+                    scrollToTopButton.classList.add('opacity-100');
+                } else {
+                    scrollToTopButton.classList.remove('opacity-100');
+                    scrollToTopButton.classList.add('opacity-0');
+                }
+
+                // Header Shadow/Appearance (7)
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-xl', 'py-3');
+                    navbar.classList.remove('py-4');
+                } else {
+                    navbar.classList.remove('shadow-xl', 'py-3');
+                    navbar.classList.add('py-4');
+                }
+                
+                highlightNavLink();
+            });
+
+            // Initial highlight on load
+            highlightNavLink();
+
+
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+
+            // ===========================================
+            // DYNAMIC COUNTUP ANIMATION
+            // ===========================================
+            const countTargets = document.querySelectorAll('.count-target');
+            let hasAnimated = false;
+
+            const startCountUp = (target, duration = 2000) => {
+                const finalValue = parseFloat(target.getAttribute('data-target'));
+                const decimals = parseInt(target.getAttribute('data-decimals')) || 0;
+                let startValue = 0;
+                let startTime = null;
+
+                const step = (timestamp) => {
+                    if (!startTime) startTime = timestamp;
+                    const progress = timestamp - startTime;
+                    const percentage = Math.min(progress / duration, 1);
+                    const currentValue = startValue + (finalValue - startValue) * percentage;
+
+                    target.textContent = currentValue.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                    if (percentage < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            const countUpObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        countTargets.forEach(target => startCountUp(target));
+                        hasAnimated = true; // Run once
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.5 // Trigger when 50% of the section is visible
+            });
+
+            const measurableImpactSection = document.getElementById('measurable-impact');
+            if (measurableImpactSection) {
+                countUpObserver.observe(measurableImpactSection);
+            }
+
+
+            // ===========================================
+            // DYNAMIC MODAL (5 & Timeline)
+            // ===========================================
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalCloseButton = document.getElementById('modal-close');
+            const modalTitle = document.getElementById('modal-title');
+            const modalPeriod = document.getElementById('modal-period');
+            const modalDescription = document.getElementById('modal-description');
+            const body = document.body;
+
+            const openModal = (title, period, description) => {
+                modalTitle.textContent = title;
+                modalPeriod.textContent = period;
+                modalDescription.textContent = description;
+
+                modalOverlay.classList.add('active');
+                body.style.overflow = 'hidden'; // Prevent scrolling background
+            };
+
+            const closeModal = () => {
+                modalOverlay.classList.remove('active');
+                body.style.overflow = ''; // Restore scrolling
+            };
+
+            modalCloseButton.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+
+            // Attach listeners to Timeline and Misc Project Cards
+            document.querySelectorAll('[data-type="timeline"]').forEach(item => {
+                item.addEventListener('click', () => {
+                    const title = item.getAttribute('data-title');
+                    const period = item.querySelector('p:first-child').textContent.trim();
+                    const description = item.getAttribute('data-period');
+                    openModal(title, period, description);
+                });
+            });
+
+            document.querySelectorAll('.modal-trigger').forEach(button => {
+                button.addEventListener('click', () => {
+                    const title = button.getAttribute('data-title');
+                    const description = button.getAttribute('data-desc');
+                    const platform = button.closest('.project-card').getAttribute('data-platform');
+                    openModal(title, `Platform: ${platform}`, description);
+                });
+            });
+
+
+            // ===========================================
+            // PROJECTS FILTERING
+            // ===========================================
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.getAttribute('data-filter');
+
+                    // Update active button state
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active-filter', 'border-accent', 'bg-accent-soft', 'text-white', 'text-main');
+                        btn.classList.add('border-border-card', 'text-main');
+                        btn.classList.remove('hover:border-accent', 'hover:bg-accent-soft', 'hover:text-accent');
+                        btn.classList.add('hover:border-accent', 'hover:bg-accent-soft', 'hover:text-accent');
+                    });
+                    button.classList.add('active-filter', 'border-accent', 'bg-accent', 'text-white');
+                    button.classList.remove('border-border-card', 'text-main', 'hover:border-accent', 'hover:bg-accent-soft', 'hover:text-accent');
+
+
+                    // Filter cards
+                    projectCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            card.classList.remove('hidden');
+                            card.classList.add('active');
+                        } else {
+                            card.classList.add('hidden');
+                            card.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // Set initial active state for 'All Projects' button
+            document.querySelector('.filter-btn[data-filter="all"]').classList.remove('border-border-card', 'text-main', 'hover:border-accent', 'hover:bg-accent-soft', 'hover:text-accent');
+            document.querySelector('.filter-btn[data-filter="all"]').classList.add('active-filter', 'border-accent', 'bg-accent', 'text-white');
+
+
+            // ===========================================
+            // SKILL BAR ANIMATION
+            // ===========================================
+            const skillBars = document.querySelectorAll('.skill-bar-inner');
+            const skillBarContainer = document.querySelector('.skill-bar-container');
+
+            const skillObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        skillBars.forEach(bar => {
+                            const widthClass = bar.getAttribute('data-width');
+                            bar.classList.add(widthClass);
+                        });
+                        skillObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            if (skillBarContainer) {
+                skillObserver.observe(skillBarContainer);
+            }
+
+            // ===========================================
+            // THEME TOGGLE (1.)
+            // ===========================================
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIndicator = document.getElementById('theme-toggle-indicator');
+            const toggleMoon = document.querySelector('.toggle-moon');
+            const toggleSun = document.querySelector('.toggle-sun');
+            const html = document.documentElement;
+
+            // Load theme preference from local storage or default to dark
+            const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            if (currentTheme === 'light') {
+                html.classList.remove('dark');
+                themeIndicator.classList.remove('dark-mode');
+                themeIndicator.classList.add('light-mode');
+                toggleMoon.classList.remove('hidden');
+                toggleSun.classList.add('hidden');
+            } else {
+                html.classList.add('dark');
+                themeIndicator.classList.add('dark-mode');
+                themeIndicator.classList.remove('light-mode');
+                toggleMoon.classList.add('hidden');
+                toggleSun.classList.remove('hidden');
+            }
+
+            themeToggle.addEventListener('click', () => {
+                if (html.classList.contains('dark')) {
+                    // Switch to Light Mode
+                    html.classList.remove('dark');
+                    themeIndicator.classList.remove('dark-mode');
+                    themeIndicator.classList.add('light-mode');
+                    toggleMoon.classList.remove('hidden');
+                    toggleSun.classList.add('hidden');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    // Switch to Dark Mode
+                    html.classList.add('dark');
+                    themeIndicator.classList.add('dark-mode');
+                    themeIndicator.classList.remove('light-mode');
+                    toggleMoon.classList.add('hidden');
+                    toggleSun.classList.remove('hidden');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+
+            // ===========================================
+            // DYNAMIC PROFILE IMAGE (6.)
+            // ===========================================
+            const headerProfileImg = document.getElementById('header-profile-img');
+            const heroProfileImg = document.getElementById('hero-profile-img');
+            
+            // Function to check if image loaded and fade it in
+            const checkImageLoad = (imgElement) => {
+                if (imgElement.complete) {
+                    setTimeout(() => {
+                        imgElement.style.opacity = '1';
+                        imgElement.style.transform = 'scale(1)';
+                    }, 50); // Small delay for better visual effect
+                } else {
+                    imgElement.addEventListener('load', () => {
+                        setTimeout(() => {
+                            imgElement.style.opacity = '1';
+                            imgElement.style.transform = 'scale(1)';
+                        }, 50);
+                    });
+                }
+            };
+            
+            // Apply initial transition styles
+            headerProfileImg.style.opacity = '0';
+            headerProfileImg.style.transform = 'scale(0.9)';
+            heroProfileImg.style.opacity = '0';
+            heroProfileImg.style.transform = 'scale(0.9)';
+
+            // Fade images in after load
+            checkImageLoad(headerProfileImg);
+            checkImageLoad(heroProfileImg);
+
+
+            // ===========================================
+            // SHARE BUTTON FUNCTIONALITY
+            // ===========================================
+            const shareButton = document.getElementById('share-button');
+            const formMessage = document.getElementById('form-message');
+
+            shareButton.addEventListener('click', async (e) => {
+                e.preventDefault();
+
+                const copyToClipboard = (text) => {
+                    const tempInput = document.createElement('input');
+                    tempInput.setAttribute('type', 'text');
+                    tempInput.value = text;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    try {
+                        document.execCommand('copy');
+                        formMessage.classList.remove('hidden', 'text-red-500');
+                        formMessage.classList.add('text-green-500');
+                        formMessage.innerHTML = 'Link copied to clipboard!';
+                        setTimeout(() => { formMessage.classList.add('hidden'); }, 3000);
+                    } catch (err) {
+                        console.error('Could not copy text: ', err);
+                    }
+                    document.body.removeChild(tempInput);
+                }
+
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: document.title,
+                            text: "Hi, Check out MD Momenur Rahaman's professional portfolio!",
+                            url: window.location.href,
+                        });
+                    } catch (error) {
+                        console.error('Error sharing:', error);
+                        copyToClipboard(window.location.href);
+                    }
+                } else {
+                    copyToClipboard(window.location.href);
+                }
+            });
+        });
+		
+		
+		
+		
+		
+		
+    </script>
+	
+	
+</body>
+</html>
