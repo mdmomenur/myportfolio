@@ -254,7 +254,7 @@
                 <a href="#experience" class="nav-link text-main hover:text-accent transition-colors">Experience</a>
                 <a href="#skills" class="nav-link text-main hover:text-accent transition-colors">Skills</a>
                 <a href="#educations" class="nav-link text-main hover:text-accent transition-colors">Educations</a>
-          		<a href="#projects" class="nav-link text-main hover:text-accent transition-colors">Projects</a>
+          		<a href="#Featured" class="nav-link text-main hover:text-accent transition-colors">Featured</a>
                 <a href="#certifications" class="nav-link text-main hover:text-accent transition-colors">Certifications</a>
                 <a href="#testimonials" class="nav-link text-main hover:text-accent transition-colors">Testimonials</a>
                 <a href="#contact" class="nav-link text-main hover:text-accent transition-colors">Contact</a>
@@ -698,12 +698,17 @@ Built strong foundations in civil engineering principles, construction practices
             </div>
         </section>
 
+
+
         <!-- Projects Section (Content is fine) -->
-        <section id="projects" class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-main mb-2">Featured Projects</h2>
+        <section id="Featured" class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-main mb-2">Featured</h2>
             <div class="h-1 w-24 bg-accent mb-12"></div>
 
+
+
             <!-- Project Filtering Buttons -->
+<!-- START:
             <div class="flex flex-wrap gap-3 mb-12 justify-center">
                 <button data-filter="all" class="filter-btn py-2 px-4 rounded-full text-sm font-medium bg-accent text-white hover:bg-blue-600 transition-colors shadow-md">All Projects</button>
                 <button data-filter="blockchain" class="filter-btn py-2 px-4 rounded-full text-sm font-medium bg-card text-main border border-border-card hover:bg-accent-soft hover:text-accent transition-colors">Blockchain</button>
@@ -713,118 +718,73 @@ Built strong foundations in civil engineering principles, construction practices
                 <button data-filter="frontend" class="filter-btn py-2 px-4 rounded-full text-sm font-medium bg-card text-main border border-border-card hover:bg-accent-soft hover:text-accent transition-colors">Frontend</button>
             </div>
 
+End: -->
+
             <!-- Project Cards Grid -->
             <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project Card 1: DeFi Tracker -->
                 <div class="project-card all blockchain full-stack bg-card rounded-2xl shadow-xl overflow-hidden border border-card transition-transform duration-300 hover:scale-[1.02]">
                     <div class="h-32 bg-gray-700 dark:bg-gray-800 flex items-center justify-center border-b border-border-card">
-                        <i class="fas fa-link text-5xl text-gray-500"></i>
+                        <img 
+                src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=6eWKOyAAAAAJ&citpid=24" 
+                alt="Research Paper Logo" 
+                class="h-20 w-auto object-contain p-2 rounded-lg"
+                onerror="this.onerror=null; this.src='https://placehold.co/80x80/2D3748/FFFFFF?text=Logo';"/>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-main mb-2">Decentralized Finance Tracker (DeFi)</h3>
-                        <p class="text-gray-500 dark:text-gray-400 mb-4 text-sm">A real-time DeFi portfolio tracker integrated with Ethereum and Polygon networks, allowing users to monitor assets, track liquidity pools, and view historical transaction data securely.</p>
+                        <h3 class="text-xl font-bold text-main mb-2">ML Model for predicting Time & Cost Overrun</h3>
+                        <p class="text-gray-500 dark:text-gray-400 mb-4 text-sm">Unraveling Time and Cost Overruns in India's Pipeline Infrastructure: A Data-Driven Study with Machine Learning Prediction Model .</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">React</span>
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Web3.js</span>
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Solidity</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Time & Cost Overrun</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Statistical Analysis</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Machine Learning</span>
+							<span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Predictive Analytics</span>
                         </div>
                         <div class="flex space-x-4">
-                            <button class="flex-1 py-3 px-4 text-white bg-accent hover:bg-blue-600 rounded-lg font-semibold transition-colors shadow-md">
-                                LIVE DEMO
-                            </button>
+                            <a href="https://www.irjet.net/archives/V12/i4/IRJET-V12I463.pdf" class="py-3 px-8 bg-accent text-white border border-accent hover:bg-accent hover:text-white rounded-lg font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2">
+                                <span>View Published Research Paper</span>
+                            </a>
                         </div>
                     </div>
                 </div>
+
+
 
                 <!-- Project Card 2: Microservices E-commerce -->
                 <div class="project-card all backend full-stack bg-card rounded-2xl shadow-xl overflow-hidden border border-card transition-transform duration-300 hover:scale-[1.02]">
+                    <div class="project-card all blockchain full-stack bg-card rounded-2xl shadow-xl overflow-hidden border border-card transition-transform duration-300 hover:scale-[1.02]">
                     <div class="h-32 bg-gray-700 dark:bg-gray-800 flex items-center justify-center border-b border-border-card">
-                        <i class="fas fa-microchip text-5xl text-gray-500"></i>
+                        <img 
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTzXX8vEZHFWwQOBFENInHpOvI2-iEcxMg7g&s" 
+                alt="Research Paper Logo" 
+                class="h-20 w-auto object-contain p-2 rounded-lg"
+                onerror="this.onerror=null; this.src='https://placehold.co/80x80/2D3748/FFFFFF?text=Logo';"/>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-main mb-2">Microservices E-commerce Backend</h3>
-                        <p class="text-gray-500 dark:text-gray-400 mb-4 text-sm">A robust e-commerce system decomposed into five microservices (User, Catalog, Order, Inventory, Payment) communicating via Kafka message queues for asynchronous processing and eventual consistency.</p>
+                        <h3 class="text-xl font-bold text-main mb-2">Digital Transformation in Construction Industry (A Comprehensive Study of Emerging Technology)</h3>
+                        <p class="text-gray-500 dark:text-gray-400 mb-4 text-sm">This report highlights India’s construction shift toward Construction 4.0, showcasing AI, BIM, AR, and IoT applications, challenges, and recommendations to improve efficiency, safety, and project delivery in the coming decade.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Java</span>
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Spring Boot</span>
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Kubernetes</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">AI & Digital Transformation</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Augmented & Virtual Realty</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Computer Vision</span>
+							<span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Digital Project Management</span>
                         </div>
                         <div class="flex space-x-4">
-                            <button class="flex-1 py-3 px-4 text-white bg-accent hover:bg-blue-600 rounded-lg font-semibold transition-colors shadow-md">
-                                LIVE DEMO
-                            </button>
+                            <a href="https://mdmomenur.github.io/myportfolio/Project2.pdf" class="py-3 px-8 bg-accent text-white border border-accent hover:bg-accent hover:text-white rounded-lg font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2">
+                                <span>View Submitted Thesis Report</span>
+                            </a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Project Card 3: AI-Powered Content Generator -->
-                <div class="project-card all ai-ml backend bg-card rounded-2xl shadow-xl overflow-hidden border border-card transition-transform duration-300 hover:scale-[1.02]">
-                    <div class="h-32 bg-gray-700 dark:bg-gray-800 flex items-center justify-center border-b border-border-card">
-                        <i class="fas fa-brain text-5xl text-gray-500"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-main mb-2">AI-Powered Content Generator</h3>
-                        <p class="text-gray-500 dark:text-gray-400 mb-4 text-sm">Web application offering AI-driven content generation and summarization services. Utilizes a fine-tuned GPT-2 model served via a lightweight Flask API.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Python</span>
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">TensorFlow</span>
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Flask</span>
-                        </div>
-                        <div class="flex space-x-4">
-                            <button class="flex-1 py-3 px-4 text-white bg-accent hover:bg-blue-600 rounded-lg font-semibold transition-colors shadow-md">
-                                LIVE DEMO
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project Card 4: Full-Stack Project Management Tool -->
-                <div class="project-card all full-stack backend bg-card rounded-2xl shadow-xl overflow-hidden border border-card transition-transform duration-300 hover:scale-[1.02]">
-                    <div class="h-32 bg-gray-700 dark:bg-gray-800 flex items-center justify-center border-b border-border-card">
-                        <i class="fas fa-tasks text-5xl text-gray-500"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-main mb-2">Full-Stack Project Management Tool</h3>
-                        <p class="text-gray-500 dark:text-gray-400 mb-4 text-sm">A collaborative Kanban-style project management tool featuring real-time updates, drag-and-drop functionality, user authentication, and task history tracking.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">MERN Stack</span>
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Socket.IO</span>
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Express</span>
-                        </div>
-                        <div class="flex space-x-4">
-                            <button class="flex-1 py-3 px-4 text-white bg-accent hover:bg-blue-600 rounded-lg font-semibold transition-colors shadow-md">
-                                LIVE DEMO
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project Card 5: Tailwind Component Library Showcase -->
-                <div class="project-card all frontend bg-card rounded-2xl shadow-xl overflow-hidden border border-card transition-transform duration-300 hover:scale-[1.02]">
-                    <div class="h-32 bg-gray-700 dark:bg-gray-800 flex items-center justify-center border-b border-border-card">
-                        <i class="fas fa-boxes text-5xl text-gray-500"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-main mb-2">Tailwind Component Library Showcase</h3>
-                        <p class="text-gray-500 dark:text-gray-400 mb-4 text-sm">A documentation site showcasing a custom-built, accessible component library based on Tailwind CSS and React, designed for rapid prototyping.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Next.js</span>
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">TypeScript</span>
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-accent-soft text-accent">Storybook</span>
-                        </div>
-                        <div class="flex space-x-4">
-                            <button class="flex-1 py-3 px-4 text-white bg-accent hover:bg-blue-600 rounded-lg font-semibold transition-colors shadow-md">
-                                LIVE DEMO
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+				</div>	
+					
+					
+              
         </section>
 
         <!-- Testimonials Section (4. Auto-Scrolling Fix) -->
         <section id="testimonials" class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-main mb-2">Client Testimonials</h2>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-main mb-2">Testimonials</h2>
             <div class="h-1 w-24 bg-accent mb-12"></div>
 
             <!-- Testimonial Carousel Container -->
@@ -837,10 +797,29 @@ Built strong foundations in civil engineering principles, construction practices
         <section class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
             <h2 class="text-3xl sm:text-4xl font-extrabold text-accent text-center mb-12 flex items-center justify-center space-x-3">
                 <i class="fas fa-award text-3xl"></i>
-                <span>Core Achievements</span>
+                <span>Achievements</span>
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			
+			
+			<div class="bg-card p-6 rounded-2xl shadow-xl border border-green-500/50 transform hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+                    data-type="achievement" data-id="a4" data-title="Top Performer Status" data-link="https://external.link/a4">
+                    <div class="flex justify-between items-start">
+                        <i class="fas fa-star text-3xl text-green-500 mb-3"></i>
+                         <a href="https://external.link/a4" target="_blank" class="text-main hover:text-accent transition-colors p-1" title="View Detailed Section" onclick="event.stopPropagation()">
+                            <i class="fas fa-external-link-alt text-lg"></i>
+                        </a>
+                    </div>
+                    <h4 class="text-lg font-bold text-main mb-2">Top Performer Status</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Seven consecutive years (2019–2025) recognized as 'Top Performer' (2nd Highest Ranking) relative to peers <span class="text-accent hover:underline">Click for details...</span></p>
+            </div>
+			
+			
+			
+			
+			
+			
                 <!-- Achievement Card 1: Clickable with Popup -->
                 <div class="bg-card p-6 rounded-2xl shadow-xl border border-orange-500/50 transform hover:scale-[1.02] transition-all duration-300 cursor-pointer"
                     data-type="achievement" data-id="a1" data-title="Process Improvement Awards 2021" data-link="https://external.link/a1">
@@ -852,8 +831,13 @@ Built strong foundations in civil engineering principles, construction practices
                     </div>
                     <h4 class="text-lg font-bold text-main mb-2">Process Improvement Awards 2021</h4>
                     <p class="text-sm text-gray-500 dark:text-gray-400">Qualified to Presentation Round for Automation Project (L&T). <span class="text-accent hover:underline">Click for details...</span></p>
-                </div>
-                <!-- Achievement Card 2: Clickable with Popup -->
+            </div>
+            
+
+
+
+
+			<!-- Achievement Card 2: Clickable with Popup -->
                 <div class="bg-card p-6 rounded-2xl shadow-xl border border-yellow-500/50 transform hover:scale-[1.02] transition-all duration-300 cursor-pointer"
                     data-type="achievement" data-id="a2" data-title="ATL Champion & ATL Buddy" data-link="https://external.link/a2">
                     <div class="flex justify-between items-start">
@@ -878,17 +862,7 @@ Built strong foundations in civil engineering principles, construction practices
                     <p class="text-sm text-gray-500 dark:text-gray-400">Completed training with L&T Edutech and IIT Madras Pravartak (2024). <span class="text-accent hover:underline">Click for details...</span></p>
                 </div>
                 <!-- Achievement Card 4: Clickable with Popup -->
-                <div class="bg-card p-6 rounded-2xl shadow-xl border border-green-500/50 transform hover:scale-[1.02] transition-all duration-300 cursor-pointer"
-                    data-type="achievement" data-id="a4" data-title="Top Performer Status" data-link="https://external.link/a4">
-                    <div class="flex justify-between items-start">
-                        <i class="fas fa-star text-3xl text-green-500 mb-3"></i>
-                         <a href="https://external.link/a4" target="_blank" class="text-main hover:text-accent transition-colors p-1" title="View Detailed Section" onclick="event.stopPropagation()">
-                            <i class="fas fa-external-link-alt text-lg"></i>
-                        </a>
-                    </div>
-                    <h4 class="text-lg font-bold text-main mb-2">Top Performer Status</h4>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Multiple-year recognition (FY 2020-2022) within the WET IC division. <span class="text-accent hover:underline">Click for details...</span></p>
-                </div>
+                
                 <!-- Achievement Card 5: Clickable with Popup -->
                 <div class="bg-card p-6 rounded-2xl shadow-xl border border-purple-500/50 transform hover:scale-[1.02] transition-all duration-300 cursor-pointer"
                     data-type="achievement" data-id="a5" data-title="Data Analysis Certification" data-link="https://external.link/a5">
@@ -1509,6 +1483,13 @@ Built strong foundations in civil engineering principles, construction practices
                 }
             });
         });
+		
+		
+		
+		
+		
     </script>
+	
+	
 </body>
 </html>
