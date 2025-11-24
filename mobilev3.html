@@ -26,21 +26,21 @@
         /* The main mobile container */
         .mobile-frame {
             width: 100%;
-            max-width: 390px; /* Standard mobile width for initial design */
+            max-width: 390px;
             height: 100vh;
-            max-height: 844px; /* Standard mobile height */
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            max-height: 844px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
             border-radius: 2rem;
             overflow: hidden;
             position: relative;
             background-color: #000;
-            border: 8px solid #222;
+            border: 8px solid #333; /* Thicker border for a phone look */
             transition: all 0.3s ease;
         }
 
         /* Home Screen Background */
         .home-screen {
-            background-image: url('https://images.unsplash.com/photo-1542435503-9d180816b39d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Abstract Tech Wallpaper */
+            background-image: url('https://placehold.co/390x844/1a202c/e2e8f0?text=Abstract+Geometric+Wallpaper'); /* Placeholder for a clean tech wallpaper */
             background-size: cover;
             background-position: center;
             height: 100%;
@@ -51,6 +51,33 @@
             padding-top: 2rem;
             position: relative;
             transition: transform 0.3s ease-out;
+            overflow-y: auto; /* Allow scrolling on home screen */
+        }
+        
+        /* App Icon Styling */
+        .app-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            text-align: center;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            transition: transform 0.15s ease;
+        }
+
+        .app-icon:active {
+            transform: scale(0.9);
+        }
+
+        .app-icon-bg {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.6rem;
+            border-radius: 18px; /* Slightly rounded square */
+            box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1), 0 4px 6px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* App Drawer/App List Styling */
@@ -60,10 +87,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: rgba(18, 18, 18, 0.98);
+            backdrop-filter: blur(8px);
             color: white;
             transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth slide up */
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex;
             flex-direction: column;
             padding: 1rem;
@@ -77,27 +105,8 @@
         .app-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
+            gap: 1.5rem 0.5rem;
             padding: 1rem 0;
-        }
-
-        .app-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .app-icon-bg {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 0.6rem;
-            border-radius: 20%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: transform 0.1s;
-        }
-        .app-icon:active .app-icon-bg {
-            transform: scale(0.95);
         }
 
         /* App Screen Styling */
@@ -110,11 +119,11 @@
             background-color: #121212;
             color: #E0E0E0;
             transform: translateX(100%);
-            transition: transform 0.3s ease-out;
+            transition: transform 0.35s cubic-bezier(0.4, 0.0, 0.2, 1);
             z-index: 30;
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
+            overflow-y: hidden; /* Manage scrolling inside content area */
         }
         .app-screen.open {
             transform: translateX(0);
@@ -127,11 +136,14 @@
             align-items: center;
             border-bottom: 1px solid #333;
             flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            padding-top: 2rem; /* Account for status bar */
         }
 
         .app-content {
             padding: 1rem;
             flex-grow: 1;
+            overflow-y: auto; /* Content scrolling */
         }
 
         .content-card {
@@ -139,7 +151,8 @@
             border-radius: 0.75rem;
             padding: 1rem;
             margin-bottom: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid #2a2a2a;
         }
         
         /* Utility styles for OS elements */
@@ -149,9 +162,9 @@
             font-size: 0.75rem;
             font-weight: 500;
             line-height: 30px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-            z-index: 10;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 40; /* Always on top */
             position: absolute;
             top: 0;
             width: 100%;
@@ -159,36 +172,83 @@
 
         .nav-bar {
             height: 50px;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
             display: flex;
             justify-content: space-around;
             align-items: center;
             flex-shrink: 0;
+            position: absolute; /* Fixed at the bottom */
+            bottom: 0;
+            width: 100%;
+            z-index: 35;
         }
         
         .nav-bar button {
             color: #A0A0A0;
-            padding: 0.5rem;
+            padding: 0.75rem;
             border-radius: 50%;
             transition: background-color 0.2s, color 0.2s;
+            line-height: 1;
         }
         .nav-bar button:active {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.15);
             color: white;
         }
-
+        
         /* Home Screen Dock */
         .dock {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 1.5rem;
-            padding: 0.5rem;
-            margin: 0 1rem 55px 1rem; /* Space for the bottom nav bar */
+            backdrop-filter: blur(20px);
+            border-radius: 2rem;
+            padding: 0.75rem 0.5rem;
+            margin: 0 1rem 55px 1rem;
             display: flex;
             justify-content: space-around;
             align-items: center;
         }
+
+        /* Gallery Scroll styling */
+        .horizontal-scroll-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 10px; /* space for scroll bar */
+        }
+
+        .horizontal-scroll-item {
+            display: inline-block;
+            width: 80%; /* Show part of the next item */
+            margin-right: 1rem;
+            vertical-align: top;
+        }
+        
+        .horizontal-scroll-container::-webkit-scrollbar {
+            height: 5px;
+        }
+        
+        .horizontal-scroll-container::-webkit-scrollbar-thumb {
+            background: #4a4a4a;
+            border-radius: 10px;
+        }
+        
+        .notification-toast {
+            position: absolute;
+            top: 30px; /* Below status bar */
+            left: 50%;
+            transform: translateX(-50%) translateY(-100%);
+            background-color: #383838;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 50;
+            font-size: 0.85rem;
+        }
+        .notification-toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
     </style>
 </head>
 <body>
@@ -197,70 +257,137 @@
 
     <!-- 1. Status Bar -->
     <div class="status-bar flex justify-between items-center text-white">
-        <span id="timeDisplay">00:00</span>
+        <span id="timeDisplay">00:00 AM</span>
         <div class="flex items-center space-x-1">
             <i data-lucide="signal" class="w-4 h-4"></i>
             <i data-lucide="wifi" class="w-4 h-4"></i>
-            <span class="font-bold">85%</span>
+            <span class="font-bold">L&T Net</span>
             <i data-lucide="battery-charging" class="w-4 h-4"></i>
         </div>
     </div>
+    
+    <!-- Simulated Notification Toast -->
+    <div class="notification-toast" id="notificationToast">
+        <p class="font-bold">System</p>
+        <p id="notificationText">New message received!</p>
+    </div>
 
     <!-- 2. Home Screen -->
-    <div class="home-screen" id="homeScreen">
+    <div class="home-screen flex-col justify-start space-y-4" id="homeScreen">
         
-        <!-- Top Apps (Placeholder) -->
-        <div class="p-4 grid grid-cols-4 gap-4 pt-10">
-            <!-- Clock Widget Placeholder -->
-            <div class="col-span-2 row-span-2 bg-gray-900 bg-opacity-70 rounded-xl p-3 shadow-lg">
-                <h1 class="text-3xl font-light" id="widgetTime">00:00</h1>
-                <p class="text-sm text-gray-400" id="widgetDate">Mon, 1 Jan</p>
-                <div class="flex items-center space-x-1 mt-2">
-                    <i data-lucide="cloud" class="w-4 h-4 text-gray-300"></i>
-                    <span class="text-sm font-light">28°C</span>
+        <!-- Top Widget Area -->
+        <div class="p-4 pt-10 grid grid-cols-4 gap-4">
+            <!-- Clock Widget -->
+            <div class="col-span-4 bg-gray-900 bg-opacity-70 rounded-xl p-4 shadow-2xl flex justify-between items-center">
+                <div>
+                    <h1 class="text-4xl font-light" id="widgetTime">00:00</h1>
+                    <p class="text-md text-gray-400" id="widgetDate">Mon, 1 Jan 2024</p>
                 </div>
-            </div>
-            
-            <!-- Simple Icons -->
-            <div class="col-span-1">
-                <div class="app-icon-bg w-14 h-14 mx-auto flex items-center justify-center">
-                    <i data-lucide="mail" class="w-6 h-6 text-red-400"></i>
+                <div class="text-right">
+                    <i data-lucide="cloud-lightning" class="w-8 h-8 text-yellow-300"></i>
+                    <p class="text-xl font-medium">32°C</p>
+                    <p class="text-xs text-gray-400">Jalpaiguri</p>
                 </div>
-                <p class="text-xs mt-1">Mail</p>
-            </div>
-            <div class="col-span-1">
-                <div class="app-icon-bg w-14 h-14 mx-auto flex items-center justify-center">
-                    <i data-lucide="map-pin" class="w-6 h-6 text-green-400"></i>
-                </div>
-                <p class="text-xs mt-1">Location</p>
             </div>
         </div>
 
+        <!-- Home Screen Icons Grid (More Icons) -->
+        <div class="p-4 grid grid-cols-4 gap-y-6">
+            
+            <!-- Quick Link 1: LinkedIn -->
+            <a href="https://www.linkedin.com/in/momenurrahaman" target="_blank" class="app-icon">
+                <div class="app-icon-bg bg-blue-700 w-14 h-14">
+                    <i data-lucide="linkedin" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">LinkedIn</p>
+            </a>
+            
+            <!-- Quick Link 2: Contact/Mail -->
+            <div class="app-icon" onclick="openApp('contact'); showNotification('Contact App', 'Launching Email interface...');">
+                <div class="app-icon-bg bg-red-600 w-14 h-14">
+                    <i data-lucide="mail-open" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">Mail</p>
+            </div>
+            
+            <!-- Quick Link 3: Project Gallery -->
+            <div class="app-icon" onclick="openApp('gallery'); showNotification('Gallery', 'Loading Project Screenshots...');">
+                <div class="app-icon-bg bg-green-500 w-14 h-14">
+                    <i data-lucide="image" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">Gallery</p>
+            </div>
+            
+            <!-- Quick Link 4: Automation Tools (Skills) -->
+            <div class="app-icon" onclick="openApp('skills'); showNotification('Automation', 'Checking Python & VBA Scripts...');">
+                <div class="app-icon-bg bg-purple-600 w-14 h-14">
+                    <i data-lucide="code" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">Tools</p>
+            </div>
+            
+            <!-- Quick Link 5: L&T Experience -->
+            <div class="app-icon" onclick="openApp('experience'); showNotification('L&T ERP', 'Fetching Work Order History...');">
+                <div class="app-icon-bg bg-yellow-600 w-14 h-14">
+                    <i data-lucide="building" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">L&T ERP</p>
+            </div>
+            
+            <!-- Quick Link 6: Education/VIT -->
+            <div class="app-icon" onclick="openApp('education'); showNotification('Academics', 'Checking VIT Performance...');">
+                <div class="app-icon-bg bg-indigo-600 w-14 h-14">
+                    <i data-lucide="book-open" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">VIT Portal</p>
+            </div>
+
+             <!-- Quick Link 7: Resume Download (Simulated File Manager) -->
+            <div class="app-icon" onclick="showNotification('File Manager', 'Downloading CV... (Action Simulated)');">
+                <div class="app-icon-bg bg-gray-500 w-14 h-14">
+                    <i data-lucide="download" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">Download</p>
+            </div>
+
+            <!-- Quick Link 8: Achievements (Simulated Notification) -->
+            <div class="app-icon" onclick="openApp('awards'); showNotification('System Update', 'New Awards and Certifications added!');">
+                <div class="app-icon-bg bg-teal-500 w-14 h-14">
+                    <i data-lucide="bell" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">Notify Me</p>
+            </div>
+        </div>
+        
+        <!-- Padding to allow scrolling over the dock space -->
+        <div class="h-20"></div>
+
         <!-- Dock (Primary Apps) -->
-        <div class="dock">
-            <div class="app-icon" onclick="openApp('profile')">
+        <div class="dock fixed bottom-[55px] max-w-[374px] w-[95%] mx-auto">
+            <div class="app-icon" onclick="openApp('profile'); showNotification('Profile App', 'Loading Personal Details...');">
                 <div class="app-icon-bg bg-blue-500/80 w-12 h-12 flex items-center justify-center">
                     <i data-lucide="user" class="w-6 h-6 text-white"></i>
                 </div>
-                <p class="text-xs mt-1 text-white opacity-0">Profile</p>
             </div>
-            <div class="app-icon" onclick="openApp('experience')">
+            <div class="app-icon" onclick="openApp('experience'); showNotification('Work App', 'Loading L&T Job History...');">
                 <div class="app-icon-bg bg-yellow-500/80 w-12 h-12 flex items-center justify-center">
                     <i data-lucide="briefcase" class="w-6 h-6 text-white"></i>
                 </div>
-                <p class="text-xs mt-1 text-white opacity-0">Experience</p>
             </div>
-            <div class="app-icon" onclick="openApp('skills')">
+            <div class="app-icon" onclick="toggleAppDrawer(true); showNotification('System', 'Launching App Drawer...');">
+                <div class="app-icon-bg bg-gray-500/80 w-12 h-12 flex items-center justify-center">
+                    <i data-lucide="grid" class="w-6 h-6 text-white"></i>
+                </div>
+            </div>
+            <div class="app-icon" onclick="openApp('skills'); showNotification('Settings', 'Reviewing Technical Stack...');">
                 <div class="app-icon-bg bg-red-500/80 w-12 h-12 flex items-center justify-center">
                     <i data-lucide="cpu" class="w-6 h-6 text-white"></i>
                 </div>
-                <p class="text-xs mt-1 text-white opacity-0">Skills</p>
             </div>
-            <div class="app-icon" onclick="openApp('contact')">
+            <div class="app-icon" onclick="openApp('contact'); showNotification('Dialer', 'Ready to connect...');">
                 <div class="app-icon-bg bg-green-500/80 w-12 h-12 flex items-center justify-center">
                     <i data-lucide="phone" class="w-6 h-6 text-white"></i>
                 </div>
-                <p class="text-xs mt-1 text-white opacity-0">Contact</p>
             </div>
         </div>
         
@@ -268,72 +395,100 @@
 
     <!-- 3. App Drawer/Launcher (Hidden by default) -->
     <div class="app-drawer" id="appDrawer">
-        <h2 class="text-2xl font-bold mb-4 text-center border-b border-gray-700 pb-2">App Launcher</h2>
+        <div class="w-full relative mb-6">
+            <input type="text" placeholder="Search apps..." class="w-full bg-gray-800 text-white rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <i data-lucide="search" class="w-5 h-5 absolute right-4 top-2.5 text-gray-400"></i>
+        </div>
         <div class="app-grid">
             <!-- App 1: Profile -->
             <div class="app-icon" onclick="openApp('profile'); toggleAppDrawer(false);">
-                <div class="app-icon-bg bg-blue-500 w-14 h-14 flex items-center justify-center">
+                <div class="app-icon-bg bg-blue-500 w-14 h-14">
                     <i data-lucide="user-round" class="w-6 h-6 text-white"></i>
                 </div>
                 <p class="text-xs mt-1">Profile</p>
             </div>
             <!-- App 2: Experience -->
             <div class="app-icon" onclick="openApp('experience'); toggleAppDrawer(false);">
-                <div class="app-icon-bg bg-yellow-500 w-14 h-14 flex items-center justify-center">
+                <div class="app-icon-bg bg-yellow-500 w-14 h-14">
                     <i data-lucide="briefcase" class="w-6 h-6 text-white"></i>
                 </div>
                 <p class="text-xs mt-1">Experience</p>
             </div>
             <!-- App 3: Education -->
             <div class="app-icon" onclick="openApp('education'); toggleAppDrawer(false);">
-                <div class="app-icon-bg bg-indigo-500 w-14 h-14 flex items-center justify-center">
+                <div class="app-icon-bg bg-indigo-500 w-14 h-14">
                     <i data-lucide="graduation-cap" class="w-6 h-6 text-white"></i>
                 </div>
                 <p class="text-xs mt-1">Education</p>
             </div>
-            <!-- App 4: Skills -->
+            <!-- App 4: Skills/Tech Stack -->
             <div class="app-icon" onclick="openApp('skills'); toggleAppDrawer(false);">
-                <div class="app-icon-bg bg-red-500 w-14 h-14 flex items-center justify-center">
+                <div class="app-icon-bg bg-red-500 w-14 h-14">
                     <i data-lucide="cpu" class="w-6 h-6 text-white"></i>
                 </div>
-                <p class="text-xs mt-1">Skills</p>
+                <p class="text-xs mt-1">Tech Stack</p>
             </div>
-            <!-- App 5: Awards -->
+            <!-- App 5: Awards/Certifications -->
             <div class="app-icon" onclick="openApp('awards'); toggleAppDrawer(false);">
-                <div class="app-icon-bg bg-green-500 w-14 h-14 flex items-center justify-center">
+                <div class="app-icon-bg bg-teal-500 w-14 h-14">
                     <i data-lucide="trophy" class="w-6 h-6 text-white"></i>
                 </div>
                 <p class="text-xs mt-1">Awards</p>
             </div>
-             <!-- App 6: Contact -->
+             <!-- App 6: Contact/Mail -->
             <div class="app-icon" onclick="openApp('contact'); toggleAppDrawer(false);">
-                <div class="app-icon-bg bg-teal-500 w-14 h-14 flex items-center justify-center">
+                <div class="app-icon-bg bg-purple-500 w-14 h-14">
                     <i data-lucide="mail-open" class="w-6 h-6 text-white"></i>
                 </div>
-                <p class="text-xs mt-1">Contact</p>
+                <p class="text-xs mt-1">Mail</p>
+            </div>
+             <!-- App 7: Project Gallery -->
+            <div class="app-icon" onclick="openApp('gallery'); toggleAppDrawer(false);">
+                <div class="app-icon-bg bg-green-500 w-14 h-14">
+                    <i data-lucide="image" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">Gallery</p>
             </div>
             <!-- Placeholder Apps -->
-            <div class="app-icon">
-                <div class="app-icon-bg bg-gray-500 w-14 h-14 flex items-center justify-center">
+            <div class="app-icon" onclick="showNotification('Settings', 'Settings access restricted.');">
+                <div class="app-icon-bg bg-gray-600 w-14 h-14">
                     <i data-lucide="settings" class="w-6 h-6 text-white"></i>
                 </div>
                 <p class="text-xs mt-1">Settings</p>
             </div>
-            <div class="app-icon">
-                <div class="app-icon-bg bg-fuchsia-500 w-14 h-14 flex items-center justify-center">
+            <div class="app-icon" onclick="showNotification('Gaming Hub', 'No games installed yet.');">
+                <div class="app-icon-bg bg-fuchsia-600 w-14 h-14">
                     <i data-lucide="gamepad" class="w-6 h-6 text-white"></i>
                 </div>
-                <p class="text-xs mt-1">Game</p>
+                <p class="text-xs mt-1">Gaming Hub</p>
+            </div>
+            <div class="app-icon" onclick="showNotification('Camera', 'Permission Denied.');">
+                <div class="app-icon-bg bg-orange-600 w-14 h-14">
+                    <i data-lucide="camera" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">Camera</p>
+            </div>
+             <div class="app-icon" onclick="showNotification('Maps', 'GPS initializing...');">
+                <div class="app-icon-bg bg-lime-600 w-14 h-14">
+                    <i data-lucide="map" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">Maps</p>
+            </div>
+            <div class="app-icon" onclick="showNotification('Browser', 'Opening browser...');">
+                <div class="app-icon-bg bg-sky-600 w-14 h-14">
+                    <i data-lucide="globe" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-xs mt-1">Browser</p>
             </div>
         </div>
     </div>
 
-    <!-- 4. App Screens (Hidden by default, will slide in) -->
+    <!-- 4. App Screens (The main portfolio content) -->
 
     <!-- App Screen Template -->
     <div class="app-screen" id="appScreen-template">
         <div class="app-header">
-            <button onclick="closeApp()" class="text-gray-400 hover:text-white mr-3">
+            <button onclick="closeApp(); showNotification('System', 'App closed.');" class="text-gray-400 hover:text-white mr-3">
                 <i data-lucide="arrow-left" class="w-6 h-6"></i>
             </button>
             <h1 class="text-xl font-medium text-white" id="appTitle">App Name</h1>
@@ -345,13 +500,13 @@
 
     <!-- 5. Bottom Navigation Bar (Fixed for OS experience) -->
     <div class="nav-bar fixed bottom-0 max-w-[390px] w-full mx-auto" id="navBar">
-        <button onclick="closeApp()">
+        <button onclick="closeApp(); showNotification('Back', 'Going back...');">
             <i data-lucide="chevrons-left" class="w-6 h-6"></i>
         </button>
-        <button onclick="goHome()">
+        <button onclick="goHome(); showNotification('Home', 'Returning to Home Screen.');">
             <i data-lucide="circle" class="w-6 h-6"></i>
         </button>
-        <button onclick="toggleAppDrawer(true)">
+        <button onclick="toggleAppDrawer(true); showNotification('Multitasking', 'Showing recent apps...');">
             <i data-lucide="square" class="w-6 h-6"></i>
         </button>
     </div>
@@ -366,11 +521,11 @@
         objective: "To prove myself dedicated, worthful and energetic as a civil engineer in a progressive organization, that gives me scope to apply my knowledge and skills thereby add value to the organization, that dynamically works towards success and growth of the organization.",
         summary: "A highly skilled Civil Engineer and experienced MIS & Operations Coordinator with 8 years at Larsen & Toubro. Expertise in project management, data analysis, process automation, financial reporting and risk mitigation. Proficient in Advanced Excel, Python, Power BI, VBA, Power Apps, and Power Automate. Completed Bachelor in Technology (B.Tech) in Construction Technology from VIT-Vellore & Secured 4th Rank.",
         keyQualities: [
-            "Project Monitoring & Coordination", "Management Information Systems", 
-            "Financial Reporting & Analysis", "Work Order & Purchase Order", 
-            "Construction Planning & Scheduling", "Business Operations", 
-            "Data Visualization & Dashboard", "Risk Identification and Mitigation", 
-            "Multitasking & maintain confidentialities", "Python, Unity, Primavera P6, ERP, Revit"
+            "Project Monitoring & Coordination", "Management Information Systems (MIS)", 
+            "Financial Reporting & Analysis", "Work Order & Purchase Order Oversight", 
+            "Construction Planning & Scheduling (Primavera P6)", "Business Operations & Strategy", 
+            "Data Visualization & Dashboard (Power BI)", "Risk Identification and Mitigation", 
+            "Multitasking & maintain confidentialities", "Python, Unity, ERP, Revit, ETabs"
         ],
         contact: {
             phone: "+91 7001379996 / 9775476948",
@@ -385,29 +540,43 @@
             title: "Cluster Operations & Digital Coordinator - Sr. Engineer (CIVIL)",
             company: "LARSEN & TOUBRO LTD | ECC Division",
             duration: "May 2024 - Present",
+            icon: 'trending-up',
             description: [
-                "Managing 8 major Rural Water Supply projects valued at 3000 Cr across West Bengal and Jharkhand, ensuring timely execution, cost control, and quality compliance.",
+                "Managing 8 major Rural Water Supply projects (3000 Cr valuation) across West Bengal and Jharkhand, focusing on timely execution, cost control, and quality compliance.",
                 "Leading cross-functional coordination while overseeing work orders, purchase orders, and operational efficiency through strategic project management.",
-                "Spearheading the end-to-end rollout of digital initiatives aligned with organizational goals."
+                "Spearheading the end-to-end rollout of digital initiatives and process automation aligned with organizational goals."
+            ],
+            keyMetrics: [
+                "Managed 8 major projects simultaneously.",
+                "Oversaw 3000 Cr project valuation.",
+                "Focused on Digital Transformation rollout."
             ]
         },
         {
             title: "Cluster & Segment MIS Coordinator - Engineer (CIVIL)",
             company: "LARSEN & TOUBRO LTD | ECC Division",
             duration: "Apr 2018 - May 2024",
+            icon: 'bar-chart-2',
             description: [
-                "Managed MIS functions for 45+ projects worth 15,000 Cr across Southern and Eastern India incl. Sri Lanka, covering project tracking, QMS reporting, and work & purchase order oversight.",
-                "Prepared monthly financial performance reports, variance analysis, and data-driven dashboards for leadership.",
-                "Automated over 20 MIS reports using VBA and Power Automate, reducing manual effort by 40% and enhancing data accuracy."
+                "Managed MIS functions for 45+ projects (15,000 Cr valuation) across Southern and Eastern India, covering project tracking, QMS reporting, and order oversight.",
+                "Prepared monthly financial performance reports, variance analysis, and data-driven dashboards for leadership using Power BI and Advanced Excel.",
+                "Automated over 20 MIS reports using VBA and Power Automate, resulting in 40% reduction in manual effort and enhanced data accuracy."
+            ],
+            keyMetrics: [
+                "Managed MIS for 45+ projects.",
+                "Automated 20+ reports using VBA/Power Automate.",
+                "Reduced manual effort by 40%."
             ]
         },
         {
             title: "Diploma Engineer Trainee",
             company: "LARSEN & TOUBRO LIMITED",
             duration: "Sep 2017 - Mar 2018 (6 Months)",
+            icon: 'award',
             description: [
-                "Completed 6 months of mandatory training in Water & Effluent Treatment IC."
-            ]
+                "Completed 6 months of mandatory intensive training in Water & Effluent Treatment IC."
+            ],
+            keyMetrics: ["6 months intensive training."]
         }
     ];
 
@@ -416,59 +585,79 @@
             degree: "B.Tech in Construction Technology",
             institution: "Vellore Institute of Technology (VIT) - Vellore",
             year: "2025 (Expected)",
-            details: "Secured 4th Rank in the program.",
-            marks: "GPA: 8.0/10 (N/A)"
+            details: "Pursuing Bachelor in Technology, secured 4th Rank in the program.",
+            marks: "GPA: 8.0/10",
+            icon: 'rocket'
         },
         {
             degree: "Diploma in Civil Engineering",
             institution: "WBSCT & VE & SD (Jalpaiguri Polytechnic Institute)",
             year: "2017",
-            details: "1st Class with Distinction",
-            marks: "Percentage: 79.1%, G.P.A: 8.3"
+            details: "1st Class with Distinction.",
+            marks: "Percentage: 79.1%, G.P.A: 8.3",
+            icon: 'git-fork'
         },
         {
             degree: "Madhyamik (10th)",
             institution: "WBBSE",
             year: "2011",
-            details: "1ST Division",
-            marks: "Percentage: 63.25%"
+            details: "1ST Division.",
+            marks: "Percentage: 63.25%",
+            icon: 'book'
         }
     ];
 
     const skillsData = {
-        popularSoftware: [
-            "MS Word", "MS Excel (Advanced)", "PowerPoint", "Outlook", 
-            "MS Teams", "Power BI", "Power Apps", "MS Flow/Power Automate", "Adobe Professional"
-        ],
-        programming: [
-            "VBA", "JavaScript", "Python", "Visual Basic 2006", "VB Script", 
-            "HTML", "DHTML", "CSS", "'C' Language", "'C++'", "Batch file (DOS)", "XML"
-        ],
-        projectManagement: [
-            "Primavera P6", "MS Project", "ERP"
-        ],
-        modelingBIM: [
-            "Autocad (2D and 3D)", "Stadd Pro", "ETabs", "Revit", "Sketchup", 
-            "Autodesk Maya 2016", "Keyshot 6"
-        ],
-        other: [
-            "Process Automation", "Animation & Video Editing (Adobe After Effects, Corel Draw, Ulead Video Studio)", 
-            "Website Developing & Maintenance", "Creating Software, Installing Windows, Repairing PC and Accessories"
-        ]
+        popularSoftware: ["MS Excel (Advanced)", "Power BI", "Power Apps", "MS Flow/Power Automate", "Adobe Professional"],
+        programming: ["VBA", "Python", "JavaScript", "C/C++", "VB Script", "HTML/CSS", "XML"],
+        projectManagement: ["Primavera P6", "MS Project", "ERP Systems"],
+        modelingBIM: ["Autocad (2D/3D)", "Stadd Pro", "ETabs", "Revit", "Sketchup", "Autodesk Maya 2016", "Keyshot 6"],
+        other: ["Process Automation", "Animation & Video Editing (Adobe After Effects, Corel Draw)", "Website Developing & Maintenance", "PC Repair & Software Installation"]
     };
+    
+    // Placeholder data for the new Gallery app
+    const galleryData = [
+        {
+            title: "MIS Dashboard Automation",
+            category: "Process Automation",
+            description: "Sample screenshot of a Power BI or Advanced Excel dashboard used for monthly financial performance reporting and variance analysis. Automated using VBA/Power Automate.",
+            imageUrl: "https://placehold.co/300x200/4c4c4c/ffffff?text=MIS+Dashboard",
+            action: "openApp('skills')"
+        },
+        {
+            title: "Primavera P6 Schedule View",
+            category: "Project Management",
+            description: "A GANTT chart visualization demonstrating complex scheduling and resource management for one of the major Rural Water Supply projects.",
+            imageUrl: "https://placehold.co/300x200/5a5a5a/ffffff?text=Primavera+Gantt",
+            action: "openApp('experience')"
+        },
+        {
+            title: "3D CAD Modeling Sample",
+            category: "Civil Engineering",
+            description: "Rendering of a 3D model created using AutoCAD or Revit, showcasing design capabilities.",
+            imageUrl: "https://placehold.co/300x200/6a6a6a/ffffff?text=Revit+3D+Model",
+            action: "openApp('skills')"
+        },
+        {
+            title: "Digital Initiative Rollout",
+            category: "Strategic Coordination",
+            description: "Flowchart or presentation slide showcasing the digital transformation strategy and rollout plan executed across clusters.",
+            imageUrl: "https://placehold.co/300x200/7a7a7a/ffffff?text=Digital+Strategy",
+            action: "openApp('experience')"
+        }
+    ];
 
     const awardsData = [
-        "Process Improvement Awards 2021 - L&T",
-        "Winner - 2nd Prize, Concrete Mix Design Contest by Ambuja Cement, Hyd.",
-        "Recognized as ATL Champion and ATL Buddy at 14th ATL Day, Mumbai",
-        "3rd Position in Monthly MIS Leaderboard (RAPL-Jan 2021), WET IC",
-        "Active Performer - Safe Execution Engineer Training, Tirunelveli",
-        "Learner of the Day - Behavioural Skills, Chennai Cluster - WET IC | L&T",
-        "Multiple awards including 'Quality Poster', 'Quality Slogan', and ATLNxt Simulation Contest during World Quality Month and Development Weeks (2021 & 2022)",
-        "1st Prize in Monthly EHS Training Event - Aug '24",
-        "Completed Project Resource Optimization offered by L&T Edutech and IIT Madras Pravartak - Jul 2024",
-        "Completed online course on 'Excel Fundamentals for Data Analysis' from Macquarie University - Sydney, Australia though Coursera"
+        { name: "Process Improvement Awards 2021 - L&T", icon: 'rocket' },
+        { name: "Winner - 2nd Prize, Concrete Mix Design Contest by Ambuja Cement", icon: 'construction' },
+        { name: "Recognized as ATL Champion and ATL Buddy at 14th ATL Day, Mumbai", icon: 'award' },
+        { name: "3rd Position in Monthly MIS Leaderboard (RAPL-Jan 2021), WET IC", icon: 'trending-up' },
+        { name: "Active Performer - Safe Execution Engineer Training, Tirunelveli", icon: 'shield' },
+        { name: "Learner of the Day - Behavioural Skills, Chennai Cluster", icon: 'user-check' },
+        { name: "Completed Project Resource Optimization offered by L&T Edutech and IIT Madras Pravartak - Jul 2024", icon: 'lightbulb' },
+        { name: "Completed online course on 'Excel Fundamentals for Data Analysis' from Macquarie University", icon: 'graduation-cap' }
     ];
+
 
     // --- DOM Elements ---
     const mobileFrame = document.getElementById('mobileFrame');
@@ -477,18 +666,29 @@
     const appScreenTemplate = document.getElementById('appScreen-template');
     const appTitle = document.getElementById('appTitle');
     const appContent = document.getElementById('appContent');
+    const notificationToast = document.getElementById('notificationToast');
+    const notificationText = document.getElementById('notificationText');
     
     // --- State and Handlers ---
     let currentScreen = 'home';
     let isDrawerOpen = false;
 
+    // Show Notification Toast
+    function showNotification(appName, message) {
+        notificationText.innerHTML = `<span class="font-bold text-blue-300">${appName}:</span> ${message}`;
+        notificationToast.classList.add('show');
+        setTimeout(() => {
+            notificationToast.classList.remove('show');
+        }, 3000);
+    }
+
     // Time/Date Update Function
     function updateTime() {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-        const dateStr = now.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
+        const dateStr = now.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
         
-        document.getElementById('timeDisplay').textContent = timeStr.replace(' ', '');
+        document.getElementById('timeDisplay').textContent = timeStr;
         document.getElementById('widgetTime').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
         document.getElementById('widgetDate').textContent = dateStr;
     }
@@ -522,7 +722,7 @@
                 contentHTML = generateEducationContent();
                 break;
             case 'skills':
-                title = 'Technical Skills';
+                title = 'Technical Stack';
                 contentHTML = generateSkillsContent();
                 break;
             case 'awards':
@@ -530,8 +730,12 @@
                 contentHTML = generateAwardsContent();
                 break;
             case 'contact':
-                title = 'Contact Details';
+                title = 'Contact & Share';
                 contentHTML = generateContactContent();
+                break;
+            case 'gallery':
+                title = 'Project Gallery';
+                contentHTML = generateGalleryContent();
                 break;
             default:
                 title = 'Error';
@@ -542,6 +746,9 @@
         appContent.innerHTML = contentHTML;
         appScreenTemplate.classList.add('open');
         currentScreen = appId;
+        
+        // Re-run icon creation for new content
+        lucide.createIcons(); 
     }
 
     // Close the currently open application
@@ -559,6 +766,31 @@
         closeApp();
         toggleAppDrawer(false);
     }
+    
+    // Clipboard Utility for Contact App
+    function copyToClipboard(text, elementId) {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+            document.execCommand('copy');
+            const element = document.getElementById(elementId);
+            element.textContent = 'Copied!';
+            element.classList.remove('bg-blue-600');
+            element.classList.add('bg-green-600');
+            setTimeout(() => {
+                element.textContent = 'Copy';
+                element.classList.remove('bg-green-600');
+                element.classList.add('bg-blue-600');
+            }, 1500);
+            showNotification('Clipboard', 'Content copied successfully!');
+        } catch (err) {
+            console.error('Could not copy text: ', err);
+            showNotification('Clipboard', 'Copy failed. See console log.');
+        }
+        document.body.removeChild(tempInput);
+    }
 
     // --- Content Generation Functions ---
     
@@ -567,33 +799,44 @@
             <div class="content-card">
                 <h2 class="text-2xl font-bold text-blue-400">${profileData.name}</h2>
                 <p class="text-sm text-gray-400 mb-4">${profileData.title}</p>
+                
+                <h3 class="text-lg font-semibold border-b border-gray-700 pb-1 mb-2 mt-4">Summary</h3>
+                <p class="text-sm text-gray-300">${profileData.summary}</p>
 
-                <h3 class="text-lg font-semibold border-b border-gray-700 pb-1 mb-2">Career Objective</h3>
+                <h3 class="text-lg font-semibold border-b border-gray-700 pb-1 mb-2 mt-4">Career Objective</h3>
                 <p class="text-sm mb-4 italic text-gray-300">${profileData.objective}</p>
 
-                <h3 class="text-lg font-semibold border-b border-gray-700 pb-1 mb-2">Summary</h3>
-                <p class="text-sm text-gray-300">${profileData.summary}</p>
             </div>
             
             <div class="content-card">
-                <h3 class="text-lg font-semibold border-b border-gray-700 pb-1 mb-2">Key Qualities</h3>
-                <ul class="list-disc list-inside text-sm text-gray-300 ml-2">
-                    ${profileData.keyQualities.map(q => `<li>${q}</li>`).join('')}
-                </ul>
+                <h3 class="text-lg font-semibold border-b border-gray-700 pb-1 mb-2">Core Competencies</h3>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    ${profileData.keyQualities.map(q => `
+                        <span class="bg-blue-800/50 text-blue-200 text-xs font-medium px-2 py-1 rounded-full shadow-md">${q}</span>
+                    `).join('')}
+                </div>
             </div>
         `;
     }
 
     function generateExperienceContent() {
-        return experienceData.map(job => `
-            <div class="content-card">
+        return experienceData.map((job, index) => `
+            <div class="content-card border-l-4 ${index === 0 ? 'border-yellow-500' : 'border-gray-500'}">
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="text-xl font-bold text-yellow-400">${job.title}</h3>
-                    <span class="text-sm text-gray-400 bg-gray-700 rounded-full px-2 py-0.5">${job.duration}</span>
+                    <i data-lucide="${job.icon}" class="w-6 h-6 text-yellow-500 flex-shrink-0"></i>
                 </div>
-                <p class="text-md font-medium text-gray-300 mb-3">${job.company}</p>
+                <p class="text-md font-medium text-gray-300 mb-1">${job.company}</p>
+                <p class="text-xs text-gray-400 mb-3">${job.duration}</p>
+                
+                <h4 class="text-sm font-semibold text-gray-300 mb-1">Responsibilities:</h4>
                 <ul class="list-disc list-inside text-sm text-gray-400 ml-2 space-y-2">
                     ${job.description.map(desc => `<li>${desc}</li>`).join('')}
+                </ul>
+                
+                <h4 class="text-sm font-semibold text-gray-300 mb-1 mt-3">Key Highlights:</h4>
+                <ul class="list-none text-sm text-gray-400 ml-2 space-y-1">
+                    ${job.keyMetrics.map(metric => `<li class="flex items-center"><i data-lucide="check-circle" class="w-4 h-4 text-green-400 mr-2"></i><span>${metric}</span></li>`).join('')}
                 </ul>
             </div>
         `).join('');
@@ -604,22 +847,23 @@
             <div class="content-card border-l-4 border-indigo-500">
                 <div class="flex justify-between items-center mb-1">
                     <h3 class="text-xl font-bold text-indigo-400">${edu.degree}</h3>
-                    <span class="text-sm text-gray-400">${edu.year}</span>
+                    <i data-lucide="${edu.icon}" class="w-6 h-6 text-indigo-500 flex-shrink-0"></i>
                 </div>
                 <p class="text-md font-medium text-gray-300 mb-1">${edu.institution}</p>
-                <p class="text-sm text-gray-400"><strong>Remarks:</strong> ${edu.details}</p>
+                <p class="text-sm text-gray-400"><strong>Year:</strong> ${edu.year}</p>
                 <p class="text-sm text-gray-400"><strong>Performance:</strong> ${edu.marks}</p>
+                <p class="text-xs text-gray-500 mt-1">${edu.details}</p>
             </div>
         `).join('');
     }
 
     function generateSkillsContent() {
         const createSkillGroup = (title, skills) => `
-            <div class="mb-6">
+            <div class="mb-6 content-card">
                 <h3 class="text-xl font-bold text-red-400 border-b border-gray-700 pb-1 mb-3">${title}</h3>
                 <div class="flex flex-wrap gap-2">
                     ${skills.map(skill => `
-                        <span class="bg-gray-700 text-gray-200 text-xs font-medium px-3 py-1 rounded-full shadow-md">${skill}</span>
+                        <span class="bg-gray-700 text-gray-200 text-sm font-medium px-3 py-1 rounded-lg shadow-md hover:bg-red-700 transition duration-150">${skill}</span>
                     `).join('')}
                 </div>
             </div>
@@ -636,12 +880,12 @@
     
     function generateAwardsContent() {
         return `
-            <h3 class="text-xl font-bold text-green-400 mb-3">Recognitions, Certifications & Achievements</h3>
-            <ul class="list-none space-y-3">
-                ${awardsData.map(award => `
-                    <li class="content-card flex items-start space-x-3">
-                        <i data-lucide="award" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-1"></i>
-                        <span class="text-sm text-gray-300">${award}</span>
+            <h3 class="text-xl font-bold text-teal-400 mb-4 border-b border-gray-700 pb-2">Recognitions & Achievements Log</h3>
+            <ul class="list-none space-y-4">
+                ${awardsData.map((award, index) => `
+                    <li class="content-card flex items-start space-x-3 border-l-4 border-teal-500">
+                        <i data-lucide="${award.icon}" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-1"></i>
+                        <span class="text-sm text-gray-300">${award.name}</span>
                     </li>
                 `).join('')}
             </ul>
@@ -650,41 +894,88 @@
     
     function generateContactContent() {
         const c = profileData.contact;
-        const iconClasses = "w-6 h-6 text-teal-400 flex-shrink-0";
+        const iconClasses = "w-6 h-6 text-purple-400 flex-shrink-0";
         return `
-            <h3 class="text-xl font-bold text-teal-400 mb-4">Get in Touch (Email App)</h3>
+            <h3 class="text-xl font-bold text-purple-400 mb-4">Dialer / Mailer App</h3>
             
             <div class="space-y-4">
-                <div class="content-card flex items-center space-x-3">
-                    <i data-lucide="phone" class="${iconClasses}"></i>
-                    <div>
-                        <p class="text-sm text-gray-400">Mobile/Contact</p>
-                        <a href="tel:${c.phone.replace(/[^0-9+]/g, '')}" class="text-base font-medium text-gray-200 hover:text-teal-300">${c.phone}</a>
+                <!-- Phone -->
+                <div class="content-card flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="phone" class="${iconClasses}"></i>
+                        <div>
+                            <p class="text-sm text-gray-400">Mobile/Contact</p>
+                            <span class="text-base font-medium text-gray-200">${c.phone}</span>
+                        </div>
                     </div>
+                    <a href="tel:${c.phone.replace(/[^0-9+]/g, '')}" class="bg-green-600 hover:bg-green-700 text-white text-sm font-bold py-1 px-3 rounded-full transition">Call</a>
                 </div>
 
-                <div class="content-card flex items-center space-x-3">
-                    <i data-lucide="mail" class="${iconClasses}"></i>
-                    <div>
-                        <p class="text-sm text-gray-400">Email Address</p>
-                        <a href="mailto:${c.email}" class="text-base font-medium text-gray-200 hover:text-teal-300">${c.email}</a>
+                <!-- Email -->
+                <div class="content-card flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="mail" class="${iconClasses}"></i>
+                        <div>
+                            <p class="text-sm text-gray-400">Email Address</p>
+                            <span class="text-base font-medium text-gray-200">${c.email}</span>
+                        </div>
                     </div>
+                    <a href="mailto:${c.email}" class="bg-red-600 hover:bg-red-700 text-white text-sm font-bold py-1 px-3 rounded-full transition">Mail</a>
                 </div>
 
-                <div class="content-card flex items-center space-x-3">
-                    <i data-lucide="linkedin" class="${iconClasses}"></i>
-                    <div>
-                        <p class="text-sm text-gray-400">LinkedIn</p>
-                        <a href="${c.linkedin}" target="_blank" class="text-base font-medium text-gray-200 hover:text-teal-300 break-all">${c.linkedin.substring(0, 40)}...</a>
+                <!-- LinkedIn -->
+                <div class="content-card flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="linkedin" class="${iconClasses}"></i>
+                        <div>
+                            <p class="text-sm text-gray-400">LinkedIn Profile</p>
+                            <span class="text-base font-medium text-gray-200">momenurrahaman</span>
+                        </div>
                     </div>
+                    <a href="${c.linkedin}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-1 px-3 rounded-full transition">Visit</a>
                 </div>
+                
+                <!-- Action: Copy Email -->
+                <button id="copyEmailBtn" onclick="copyToClipboard('${c.email}', 'copyEmailBtn')" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                    Copy Email
+                </button>
+            </div>
+        `;
+    }
+    
+    function generateGalleryContent() {
+        return `
+            <h3 class="text-xl font-bold text-green-400 mb-4 border-b border-gray-700 pb-2">App Photo Gallery</h3>
+            
+            <!-- Vertical Scrolling Section (Main Projects) -->
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold text-gray-300 mb-3">Recent Highlights (Vertical Scroll)</h4>
+                <div class="space-y-4">
+                    ${galleryData.map((item, index) => `
+                        <div class="content-card border-l-4 border-green-500 p-3">
+                            <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-auto rounded-lg mb-3" onerror="this.onerror=null;this.src='https://placehold.co/300x150/4a4a4a/ffffff?text=Image+Not+Found'">
+                            <p class="text-md font-bold text-gray-100">${item.title}</p>
+                            <p class="text-xs text-gray-400">${item.category}</p>
+                            <p class="text-sm mt-2 text-gray-300">${item.description}</p>
+                            <button onclick="${item.action}" class="mt-3 bg-green-700 text-white text-xs px-3 py-1 rounded-full hover:bg-green-600 transition">View App</button>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
 
-                <div class="content-card flex items-start space-x-3">
-                    <i data-lucide="map-pin" class="${iconClasses}"></i>
-                    <div>
-                        <p class="text-sm text-gray-400">Permanent Address</p>
-                        <p class="text-base font-medium text-gray-200">${c.address}</p>
-                    </div>
+            <!-- Horizontal Scrolling Section (Tech Visuals) -->
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold text-gray-300 mb-3 border-t border-gray-700 pt-3">Tech Visuals (Horizontal Scroll)</h4>
+                <div class="horizontal-scroll-container">
+                    ${skillsData.programming.concat(skillsData.modelingBIM).slice(0, 6).map(skill => `
+                        <div class="horizontal-scroll-item">
+                            <div class="content-card p-4 w-52 h-40 flex flex-col justify-center items-center">
+                                <i data-lucide="layout-grid" class="w-8 h-8 text-blue-400 mb-2"></i>
+                                <p class="text-sm font-bold text-gray-100">${skill}</p>
+                                <p class="text-xs text-gray-400 text-center mt-1">Simulated view of ${skill} file.</p>
+                            </div>
+                        </div>
+                    `).join('')}
                 </div>
             </div>
         `;
@@ -702,28 +993,19 @@
         updateTime();
         setInterval(updateTime, 1000);
         
-        // Add a global touch/click listener to close drawer if open
-        mobileFrame.addEventListener('click', (e) => {
-            // Prevent closing if clicking on drawer or an app icon
-            if (!appDrawer.contains(e.target) && !e.target.closest('.app-icon') && isDrawerOpen) {
-                 // Check if the click is outside the drawer and outside the dock/navbar
-                if (!e.target.closest('.dock') && !e.target.closest('.nav-bar')) {
-                    toggleAppDrawer(false);
-                }
-            }
-        });
-        
         // Optional: Swipe up gesture to open the app drawer from the home screen
         let startY = 0;
         homeScreen.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.dock')) return; // Ignore dock
             startY = e.touches[0].clientY;
         });
 
         homeScreen.addEventListener('touchend', (e) => {
             const endY = e.changedTouches[0].clientY;
-            // Swipe up detection (endY is significantly less than startY)
+            // Swipe up detection
             if (startY - endY > 50 && currentScreen === 'home' && !isDrawerOpen) {
                 toggleAppDrawer(true);
+                showNotification('System', 'App Drawer opened.');
             }
         });
     };
