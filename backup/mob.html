@@ -140,7 +140,6 @@
 
         .app-content {
             padding: 1rem;
-			padding-bottom: 60px;
             flex-grow: 1;
             overflow-y: auto; /* Content scrolling */
         }
@@ -230,54 +229,23 @@
             border-radius: 10px;
         }
         
-        /* DYNAMIC ISLAND STYLES - REPLACED OLD NOTIFICATION TOAST */
-		.dynamic-island {
-			/* Define smooth transitions for all relevant properties */
-			transition: width 0.5s ease, height 0.5s ease, border-radius 0.5s ease, background-color 0.5s ease, top 0.5s ease, padding 0.5s ease;
-			
-			/* Default - Collapsed (Punch Hole) State */
-			width: 12px; 
-			height: 12px;
-			border-radius: 50%; /* Fully circular */
-			top: 45px; /* ADJUSTED: Moved down from 15px to 20px */
-			padding: 0;
-			background-color: #000; /* Dark background */
-			
-			/* Ensure content is hidden when collapsed */
-			overflow: hidden; 
-			
-			position: absolute;
-			left: 50%;
-			transform: translateX(-50%);
-			z-index: 50;
-		}
-
-		/* Expanded State - Applied via JS */
-		.dynamic-island.expanded {
-			width: 250px;
-			height: 40px;
-			border-radius: 2rem;
-			top: 45px; /* ADJUSTED: Moved down from 10px to 15px */
-			padding: 0 0.75rem;
-			background-color: #333; /* Darker background for active state */
-		}
-
-        /* Notification Content: Only visible in expanded state */
-        .dynamic-island-content {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            display: flex; /* Ensure content is laid out horizontally */
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            width: 100%;
-            white-space: nowrap;
+        .notification-toast {
+            position: absolute;
+            top: 30px; /* Below status bar */
+            left: 50%;
+            transform: translateX(-50%) translateY(-100%);
+            background-color: #383838;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 50;
+            font-size: 0.85rem;
         }
-
-        .dynamic-island.expanded .dynamic-island-content {
-            opacity: 1;
+        .notification-toast.show {
+            transform: translateX(-50%) translateY(0);
         }
-        /* END DYNAMIC ISLAND STYLES */
 
     </style>
 </head>
@@ -295,53 +263,27 @@
         </div>
     </div>
     
-    <div id="dynamicIsland" class="dynamic-island fixed left-1/2 -translate-x-1/2 bg-gray-900 z-50 shadow-xl flex items-center justify-center">
-        <div id="dynamicIslandContent" class="dynamic-island-content">
-            <span id="dynamicIslandIcon" class="mr-2"></span>
-            <span id="dynamicIslandText" class="text-sm font-medium text-white"></span>
-        </div>
+    <div class="notification-toast" id="notificationToast">
+        <p class="font-bold">System</p>
+        <p id="notificationText">New message received!</p>
     </div>
+
     <div class="home-screen flex-col justify-start space-y-4" id="homeScreen">
         
-        <div class="p-4 pt-10 space-y-4">
-    
-		<form action="https://www.google.com/search" method="get" target="_blank" class="w-full relative">
-			<input type="text" name="q" placeholder="Search Google or portfolio..." 
-				   class="w-full bg-gray-800 bg-opacity-90 text-white rounded-full py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" 
-				   required>
-			<button type="submit" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-				<i data-lucide="search" class="w-5 h-5"></i>
-			</button>
-		</form>
-		
-		<br>
-		<br>
-		<div class="grid grid-cols-4 gap-4">
-			<div class="col-span-4 bg-gray-900 bg-opacity-70 rounded-xl p-4 shadow-2xl flex justify-between items-center">
-				<div>
-					<h1 class="text-4xl font-light" id="widgetTime">00:00</h1>
-					<p class="text-md text-gray-400" id="widgetDate">Mon, 1 Jan 2024</p>
-				</div>
-				<div class="text-right">
-					<i data-lucide="cloud-lightning" class="w-8 h-8 text-yellow-300"></i>
-					<p class="text-xl font-medium">27°C</p>
-					<p class="text-xs text-gray-400">India</p>
-				</div>
-			</div>
-		</div>
-		
-		
-		
-			
-		</div>
+        <div class="p-4 pt-10 grid grid-cols-4 gap-4">
+            <div class="col-span-4 bg-gray-900 bg-opacity-70 rounded-xl p-4 shadow-2xl flex justify-between items-center">
+                <div>
+                    <h1 class="text-4xl font-light" id="widgetTime">00:00</h1>
+                    <p class="text-md text-gray-400" id="widgetDate">Mon, 1 Jan 2024</p>
+                </div>
+                <div class="text-right">
+                    <i data-lucide="cloud-lightning" class="w-8 h-8 text-yellow-300"></i>
+                    <p class="text-xl font-medium">27°C</p>
+                    <p class="text-xs text-gray-400">India</p>
+                </div>
+            </div>
+        </div>
 
-
-		<br>
-		<br>
-		<br>
-		<br>
-		
-		
         <div class="p-4 grid grid-cols-4 gap-y-6">
             
             <a href="https://www.linkedin.com/in/momenurrahaman" target="_blank" class="app-icon">
@@ -381,7 +323,7 @@
             
             <div class="app-icon" onclick="openApp('education'); showNotification('Academics', 'Checking VIT Performance...');">
                 <div class="app-icon-bg bg-indigo-600 w-14 h-14">
-                    <i data-lucide="graduation-cap" class="w-6 h-6 text-white"></i>
+                    <i data-lucide="book-open" class="w-6 h-6 text-white"></i>
                 </div>
                 <p class="text-xs mt-1">Academics</p>
             </div>
@@ -420,13 +362,12 @@
                     <i data-lucide="house" class="w-6 h-6 text-white"></i>
                 </div>
             </div>
-            
-			<a href="#" onclick="sharePortfolio(); return false;" class="app-icon">
-                <div class="app-icon-bg bg-blue-700/80 w-12 h-12 flex items-center justify-center">
-                    <i data-lucide="share-2" class="w-6 h-6 text-white"></i>
+            <div class="app-icon" onclick="openApp('skills'); showNotification('Settings', 'Reviewing Technical Stack...');">
+                <div class="app-icon-bg bg-red-500/80 w-12 h-12 flex items-center justify-center">
+                    <i data-lucide="cpu" class="w-6 h-6 text-white"></i>
                 </div>
-            </a>
-			<div class="app-icon" onclick="openApp('contact'); showNotification('Dialer', 'Ready to connect...');">
+            </div>
+            <div class="app-icon" onclick="openApp('contact'); showNotification('Dialer', 'Ready to connect...');">
                 <div class="app-icon-bg bg-green-500/80 w-12 h-12 flex items-center justify-center">
                     <i data-lucide="phone" class="w-6 h-6 text-white"></i>
                 </div>
@@ -556,12 +497,7 @@
                 <p class="text-xs mt-1">Gallery</p>
             </div>
             
-			<a href="https://www.google.com/search?q=md+momenur+rahaman" target="_blank" class="app-icon">
-                <div class="app-icon-bg bg-orange-700 w-14 h-14">
-                    <i data-lucide="user-search" class="w-6 h-6 text-white"></i>
-                </div>
-                <p class="text-xs mt-1">Google</p>
-            </a>
+			
 			
 
 
@@ -581,23 +517,22 @@
                 <p class="text-xs mt-1">Camera</p>
             </div>
             
-			<a href="#" onclick="sharePortfolio(); return false;" class="app-icon">
-                <div class="app-icon-bg bg-blue-700 w-14 h-14">
-                    <i data-lucide="share-2" class="w-6 h-6 text-white"></i>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<div class="app-icon" onclick="openApp('share')">
+                    <div class="app-icon-bg bg-gray-700">
+                         <i data-lucide="share-2" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <span class="app-label">Share</span>
                 </div>
-                <p class="text-xs mt-1">Share</p>
-            </a>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
         </div>
     </div>
@@ -632,8 +567,7 @@
     const profileData = {
         name: "MD Momenur Rahaman",
         title: "B.Tech, AMIE(India), Chartered Engineer (IEI)",
-        profileImageUrl: "https://raw.githubusercontent.com/mdmomenur/myportfolio/refs/heads/main/ProfilePic.jpg",		
-		objective: "To prove myself dedicated, worthful and energetic as a civil engineer in a progressive organization, that gives me scope to apply my knowledge and skills thereby add value to the organization, that dynamically works towards success and growth of the organization.",
+        objective: "To prove myself dedicated, worthful and energetic as a civil engineer in a progressive organization, that gives me scope to apply my knowledge and skills thereby add value to the organization, that dynamically works towards success and growth of the organization.",
         summary: "A highly skilled Civil Engineer and experienced MIS & Operations Coordinator with 8 years at Larsen & Toubro. Expertise in project management, data analysis, process automation, financial reporting and risk mitigation. Proficient in Advanced Excel, Python, Power BI, VBA, Power Apps, and Power Automate. Completed Bachelor in Technology (B.Tech) in Construction Technology from VIT-Vellore & Secured 4th Rank.",
         keyQualities: [
             "Project Monitoring & Coordination", "Management Information Systems (MIS)", 
@@ -781,55 +715,20 @@
     const appScreenTemplate = document.getElementById('appScreen-template');
     const appTitle = document.getElementById('appTitle');
     const appContent = document.getElementById('appContent');
-    // Renamed elements for Dynamic Island
-    const dynamicIsland = document.getElementById('dynamicIsland');
-    const dynamicIslandIcon = document.getElementById('dynamicIslandIcon');
-    const dynamicIslandText = document.getElementById('dynamicIslandText');
+    const notificationToast = document.getElementById('notificationToast');
+    const notificationText = document.getElementById('notificationText');
     
     // --- State and Handlers ---
     let currentScreen = 'home';
     let isDrawerOpen = false;
-    let dynamicIslandTimeout;
 
-    // Show Notification (Dynamic Island Logic)
+    // Show Notification Toast
     function showNotification(appName, message) {
-        // Clear any pending collapse timeout
-        clearTimeout(dynamicIslandTimeout);
-
-        // 1. Update content
-        dynamicIslandText.textContent = message;
-        
-        // Determine the icon based on the appName (similar to previous approach)
-        let iconName = 'bell';
-        if (appName.includes('Contact') || appName.includes('Dialer')) {
-            iconName = 'phone';
-        } else if (appName.includes('Automation')) {
-            iconName = 'code';
-        } else if (appName.includes('Gallery')) {
-            iconName = 'image';
-        } else if (appName.includes('System') || appName.includes('Back') || appName.includes('Home') || appName.includes('Multitasking')) {
-            iconName = 'bell'; // Default bell for system events
-        } else if (appName.includes('Profile')) {
-            iconName = 'user';
-        } else if (appName.includes('L&T ERP') || appName.includes('Work App')) {
-            iconName = 'building';
-        }
-        
-        dynamicIslandIcon.innerHTML = `<i data-lucide="${iconName}" class="w-4 h-4 text-white"></i>`;
-        
-        // 2. Expand the Dynamic Island
-        dynamicIsland.classList.add('expanded');
-        
-        // Re-run icon creation for the new icon
-        lucide.createIcons(); 
-
-        // 3. Set timeout to collapse back to punch hole after 3 seconds (3000ms)
-        dynamicIslandTimeout = setTimeout(() => {
-            dynamicIsland.classList.remove('expanded');
-            // Clear content for cleanup
-            dynamicIslandIcon.innerHTML = '';
-            dynamicIslandText.textContent = '';
-        }, 3000); 
+        notificationText.innerHTML = `<span class="font-bold text-blue-300">${appName}:</span> ${message}`;
+        notificationToast.classList.add('show');
+        setTimeout(() => {
+            notificationToast.classList.remove('show');
+        }, 3000);
     }
 
     // Time/Date Update Function
@@ -957,13 +856,8 @@
     function generateProfileContent() {
         return `
             <div class="content-card">
-                <div class="flex items-start space-x-4 mb-4">
-                    <img src="${profileData.profileImageUrl}" alt="${profileData.name}" class="w-20 h-20 rounded-full object-cover border-2 border-blue-500 shadow-lg flex-shrink-0">
-                    <div>
-                        <h2 class="text-2xl font-bold text-blue-400">${profileData.name}</h2>
-                        <p class="text-sm text-gray-400">${profileData.title}</p>
-                    </div>
-                </div>
+                <h2 class="text-2xl font-bold text-blue-400">${profileData.name}</h2>
+                <p class="text-sm text-gray-400 mb-4">${profileData.title}</p>
                 
                 <h3 class="text-lg font-semibold border-b border-gray-700 pb-1 mb-2 mt-4">Summary</h3>
                 <p class="text-sm text-gray-300">${profileData.summary}</p>
@@ -1104,69 +998,14 @@
                     Copy Email
                 </button>
                 
-				
-				
-				
-
-                <a href="#" onclick="sharePortfolio(); return false;" class="app-icon">
-                <div class="app-icon-bg bg-blue-700 w-14 h-14">
-                    <i data-lucide="share-2" class="w-6 h-6 text-white"></i>
-                </div>
-                <p class="text-xs mt-1">Share</p>
-				</a>
+                <button id="shareLinkBtn" onclick="copyToClipboard('${portfolioUrl}', 'shareLinkBtn')" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition flex items-center justify-center space-x-2">
+                    <i data-lucide="share" class="w-5 h-5"></i>
+                    <span id="shareLinkBtnText">Share Portfolio Link</span>
+                </button>
             </div>
         `;
     }
     
-	// Share Portfolio using Native Web Share API with clipboard fallback
-    async function sharePortfolio() {
-        // Define the data to be shared
-        const shareData = {
-            title: document.title,
-            text: "Check out MD Momenur Rahaman's professional portfolio!",
-            url: window.location.href, // This gets the current URL of the page
-        };
-
-        // Helper function for clipboard copy (used as fallback)
-        function copyToClipboard(text) {
-            const tempInput = document.createElement('input');
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            
-            let success = false;
-            try {
-                success = document.execCommand('copy');
-            } catch (err) {
-                console.error('Could not copy text: ', err);
-            }
-            document.body.removeChild(tempInput);
-            
-            // Show a simple alert or notification that the link was copied
-            if (success) {
-                showNotification('Share', 'Link copied to clipboard!');
-            }
-            return success;
-        }
-
-        if (navigator.share) {
-            try {
-                await navigator.share(shareData);
-                showNotification('Share', 'Portfolio shared successfully!');
-            } catch (error) {
-                // If user cancels or sharing fails, fall back to copy to clipboard
-                if (error.name !== 'AbortError') {
-                    console.error('Error sharing, falling back to copy:', error);
-                    copyToClipboard(window.location.href);
-                }
-            }
-        } else {
-            // Fallback for browsers that don't support the API
-            copyToClipboard(window.location.href);
-        }
-    }
-	
-	
 	
 	
 	
